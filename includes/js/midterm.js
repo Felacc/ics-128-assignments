@@ -32,3 +32,10 @@ const jakobN = new User("Jakob", "Nowell", "sublimejakob@churchthesubgenius.org"
 // Array of Users
 let users = [bobDobbs, markM, mojoN, zoogzR, paulM, paulR, davidB, rCrumb, markH, davidW, peterC, jonL, ericW, budG, jakobN];
 console.log(users);
+
+
+// Show modal on page load
+document.addEventListener("DOMContentLoaded", function () {
+    const loginModal = new bootstrap.Modal(document.getElementById('loginModal'));
+    loginModal.show();
+});
