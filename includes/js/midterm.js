@@ -28,3 +28,7 @@ const jonL = new User("Jon", "Leidecker", "wobbly@churchthesubgenius.org", "wobb
 const ericW = new User("Eric", "Wilson", "sublimeeric@churchthesubgenius.org", "sublimeeric", false, "images/userimg.png");
 const budG = new User("Bud", "Gaugh", "sublimebud@churchthesubgenius.org", "sublimebud", false, "images/userimg.png");
 const jakobN = new User("Jakob", "Nowell", "sublimejakob@churchthesubgenius.org", "sublimejakob", false, "images/userimg.png");
+
+// Array of Users
+let users = [bobDobbs, markM, mojoN, zoogzR, paulM, paulR, davidB, rCrumb, markH, davidW, peterC, jonL, ericW, budG, jakobN];
+console.log(users);
