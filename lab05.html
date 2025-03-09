@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab 5</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="includes/css/style.css">
+</head>
+
+<body class="bg-secondary">
+
+    <!--Header-->
+    <header>
+        <!--Nav-->
+        <nav class="navbar navbar-expand-lg bg-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand text-light" href="index.html">Felix Hotel</a>
+                <p id="hello" class="text-light my-0 mx-1"><span id="helloFirstName"></span> <span id="helloLastName"></span></p>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="#">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="lab01.html">Lab 1</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="lab02.html">Lab 2</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="lab03.html">Lab 3</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="lab04.html">Lab 4</a>
+                        </li>
+                        <li class="nav-item">
+                            <a id="navLinkSelected" class="nav-link" href="lab05.html">Lab 5</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="lab06.html">Lab 6</a>
+                        </li>
+                    </ul>
+                    <button id="login" class="btn btn-success ms-auto me-2" type="button" data-bs-toggle="modal"
+                        data-bs-target="#loginModal">Login</button>
+                    <button id="logout" class="btn btn-danger ms-auto me-2" type="button"
+                        data-bs-dismiss="modal">Logout</button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!--Main Content-->
+    <main>
+        <div class="container-fluid mt-5">
+
+            <!--Account Information-->
+            <div class="container">
+                <div class="card" style="width: 18rem;">
+                    <img src="images/userimg.png" class="card-img-top" alt="user photo">
+                    <div class="card-body">
+                      <h5 class="card-title">Account Information</h5>
+                      <p class="card-text fs-5 fw-bold"><span id="displayFirstName">FIRSTNAME</span> <span id="displayLastName">LASTNAME</span></p>
+                      <p class="card-text"><span id="displayEmail">email@email.com</span></p>
+                      <hr>
+                      <p class="card-text">Age: <span id="displayAge" class="text-danger">105</span></p>
+                      <hr>
+                      <p class="card-text">Postal: <span id="displayPostalCode" class="text-primary">X0X 0X0</span></p>
+                      <hr>
+                      <p class="card-text">Phone: <span id="displayPhoneNumber" class="text-success">778-555-5309</span></p>
+                    </div>
+                  </div>
+            </div>
+
+            <!-- Modal -->
+            <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="loginModalLabel">Create Account</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="">
+
+                                <!--First Name-->
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="basic-addon1">👤</span>
+                                    <input id="firstName" type="text" class="form-control" placeholder="First"
+                                        aria-label="First name" aria-describedby="basic-addon1">
+                                </div>
+                                <!--Last Name-->
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="basic-addon1">👤</span>
+                                    <input id="lastName" type="text" class="form-control" placeholder="Last"
+                                        aria-label="Last name" aria-describedby="basic-addon1">
+                                </div>
+                                <!--Email-->
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="basic-addon1">✉️</span>
+                                    <input id="email" type="text" class="form-control" placeholder="email@email.com"
+                                        aria-label="Email" aria-describedby="basic-addon1">
+                                </div>
+                                <!--Age-->
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="basic-addon1">🗓</span>
+                                    <input id="age" type="number" class="form-control" placeholder="100"
+                                        aria-label="Age" aria-describedby="basic-addon1">
+                                </div>
+                                <!--Postal Code-->
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="basic-addon1">📩</span>
+                                    <input id="postalCode" type="text" class="form-control" placeholder="X0X0X0"
+                                        aria-label="Postal code" aria-describedby="basic-addon1">
+                                </div>
+                                <!--Phone Number-->
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="basic-addon1">📞</span>
+                                    <input id="phoneNumber" type="text" class="form-control" placeholder="778-555-6787"
+                                        aria-label="Phone number" aria-describedby="basic-addon1">
+                                </div>
+                                <!--Buttons-->
+                                <button id="submit" type="button" class="btn btn-success">Submit</button>
+                                <button id="close" type="button" class="btn btn-dark"
+                                    data-bs-dismiss="modal">Close</button>
+
+                                <div id="error" class="text-danger fs-5 fw-bold"></div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </main>
+
+
+    <!--Footer-->
+    <footer>
+        <div class="container-fluid text-white bg-dark fixed-bottom p-3 text-center">Copyright 2025 &#169</div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    <script src="includes/js/lab05.js"></script>
+</body>
+
+</html>
