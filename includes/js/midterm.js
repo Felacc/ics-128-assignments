@@ -38,6 +38,16 @@ console.log(users);
 document.addEventListener("DOMContentLoaded", function () {
     const loginModal = new bootstrap.Modal(document.querySelector("#loginModal"));
     loginModal.show();
+
+    // Fixes issues where pressing enter causes form submission
+    // makes it so login button is pressed instead
+    document.querySelector("#userInput").addEventListener("keypress", function(event) {
+        if (event.key === "Enter") {
+          event.preventDefault(); // Prevents form submission if inside a form
+          document.querySelector("#loginBtn").click(); // Triggers login button click
+        }
+      });
+
 });
 
 // Get text from modal and verify the user exists
