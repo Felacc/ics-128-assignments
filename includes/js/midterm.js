@@ -1,36 +1,36 @@
 // Make User class using ES6
 class User {
-    constructor(firstName, lastName, email, username, isAdmin, profileImg) {
+    constructor(firstName, lastName, email, password, isAdmin, profileImg) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.username = username;
+        this.password = password;
         this.isAdmin = isAdmin;
         this.profileImg = profileImg;
     }
 }
 
 // Admin Users
-const bobDobbs = new User("Bob", "Dobbs", "bobbyd@churchofthesubgenius.org", "jrdobbs", true, "images/userimg.png");
-const markM = new User("Mark", "Mothersbaugh", "markm@churchofthesubgenius.org", "mothermarky", true, "images/userimg.png");
-const mojoN = new User("Mojo", "Nixon", "mojonono@churchofthesubgenius.org", "mrmojo", true, "images/userimg.png");
+const dobbsB = new User("Bob", "Dobbs", "dobbsb@churchofthesubgenius.org", "jrdobbs", true, "images/userimg.png");
+const mothersbaughM = new User("Mark", "Mothersbaugh", "mothersbaughm@churchofthesubgenius.org", "mothermarky", true, "images/userimg.png");
+const nixonM = new User("Mojo", "Nixon", "nixonm@churchofthesubgenius.org", "mrmojo", true, "images/userimg.png");
 
 // Regular Users
-const zoogzR = new User("Zoogz", "Rift", "zoogzy@churchofthesubgenius.org", "zoogzy", false, "images/userimg.png");
-const paulM = new User("Paul", "Mavrides", "paulm@churchofthesubgenius.org", "paulm", false, "images/userimg.png");
-const paulR = new User("Paul", "Reubens", "reubens@churchthesubgenius.org", "reubdawg", false, "images/userimg.png");
-const davidB = new User("David", "Byrne", "callmedavidthewayitbyrnes@churchthesubgenius.org", "byrneysanders", false, "images/userimg.png");
-const rCrumb = new User("R.", "Crumb", "crumb@churchthesubgenius.org", "cookiecrumb", false, "images/userimg.png");
-const markH = new User("Mark", "Hosler", "hosler@churchthesubgenius.org", "hosler", false, "images/userimg.png");
-const davidW = new User("David", "Wills", "weathermanwills@churchthesubgenius.org", "theweatherman", false, "images/userimg.png");
-const peterC = new User("Peter", "Conheim", "conheim@churchthesubgenius.org", "conheim", false, "images/userimg.png");
-const jonL = new User("Jon", "Leidecker", "wobbly@churchthesubgenius.org", "wobbly", false, "images/userimg.png");
-const ericW = new User("Eric", "Wilson", "sublimeeric@churchthesubgenius.org", "sublimeeric", false, "images/userimg.png");
-const budG = new User("Bud", "Gaugh", "sublimebud@churchthesubgenius.org", "sublimebud", false, "images/userimg.png");
-const jakobN = new User("Jakob", "Nowell", "sublimejakob@churchthesubgenius.org", "sublimejakob", false, "images/userimg.png");
+const riftZ = new User("Zoogz", "Rift", "riftz@churchofthesubgenius.org", "zoogzy", false, "images/userimg.png");
+const mavridesP = new User("Paul", "Mavrides", "mavridesp@churchofthesubgenius.org", "paulm", false, "images/userimg.png");
+const reubensP = new User("Paul", "Reubens", "reubensp@churchthesubgenius.org", "reubdawg", false, "images/userimg.png");
+const byrneD = new User("David", "Byrne", "byrned@churchthesubgenius.org", "byrneysanders", false, "images/userimg.png");
+const crumbR = new User("R.", "Crumb", "crumbr@churchthesubgenius.org", "cookiecrumb", false, "images/userimg.png");
+const hoslerM = new User("Mark", "Hosler", "hoslerm@churchthesubgenius.org", "hosler", false, "images/userimg.png");
+const willsD = new User("David", "Wills", "willsd@churchthesubgenius.org", "theweatherman", false, "images/userimg.png");
+const conheimP = new User("Peter", "Conheim", "conheimp@churchthesubgenius.org", "conheim", false, "images/userimg.png");
+const leideckerJ = new User("Jon", "Leidecker", "leideckerj@churchthesubgenius.org", "wobbly", false, "images/userimg.png");
+const wilsonE = new User("Eric", "Wilson", "wilsone@churchthesubgenius.org", "sublimeeric", false, "images/userimg.png");
+const gaughB = new User("Bud", "Gaugh", "gaughb@churchthesubgenius.org", "sublimebud", false, "images/userimg.png");
+const nowellJ = new User("Jakob", "Nowell", "nowellj@churchthesubgenius.org", "sublimejakob", false, "images/userimg.png");
 
 // Array of Users
-let users = [bobDobbs, markM, mojoN, zoogzR, paulM, paulR, davidB, rCrumb, markH, davidW, peterC, jonL, ericW, budG, jakobN];
+let users = [dobbsB, mothersbaughM, nixonM, riftZ, mavridesP, reubensP, byrneD, crumbR, hoslerM, willsD, conheimP, leideckerJ, wilsonE, gaughB, nowellJ];
 console.log(users);
 
 
@@ -41,21 +41,31 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Fixes issues where pressing enter causes form submission
     // makes it so login button is pressed instead
-    document.querySelector("#userInput").addEventListener("keypress", function(event) {
+    document.querySelector("#emailInput").addEventListener("keypress", function (event) {
         if (event.key === "Enter") {
-          event.preventDefault(); // Prevents form submission if inside a form
-          document.querySelector("#loginBtn").click(); // Triggers login button click
+            event.preventDefault(); // Prevents form submission if inside a form
+            document.querySelector("#loginBtn").click(); // Triggers login button click
         }
-      });
+    });
+
+    // Fixes issues where pressing enter causes form submission
+    // makes it so login button is pressed instead
+    document.querySelector("#passwordInput").addEventListener("keypress", function (event) {
+        if (event.key === "Enter") {
+            event.preventDefault(); // Prevents form submission if inside a form
+            document.querySelector("#loginBtn").click(); // Triggers login button click
+        }
+    });
 
 });
 
 // Get text from modal and verify the user exists
 const loginBtn = document.querySelector("#loginBtn");
 loginBtn.addEventListener("click", () => {
-    const userInput = document.querySelector("#userInput").value;
+    const emailInput = document.querySelector("#emailInput").value;
+    const passwordInput = document.querySelector("#passwordInput").value;
     for (let i = 0; i < users.length; i++) {
-        if (users[i].username == userInput) {
+        if (users[i].email === emailInput && users[i].password === passwordInput) {
             alert("SUCCESS");
             break;
         }
