@@ -36,6 +36,20 @@ console.log(users);
 
 // Show modal on page load
 document.addEventListener("DOMContentLoaded", function () {
-    const loginModal = new bootstrap.Modal(document.getElementById('loginModal'));
+    const loginModal = new bootstrap.Modal(document.querySelector("#loginModal"));
     loginModal.show();
 });
+
+// Get text from modal and verify the user exists
+const loginBtn = document.querySelector("#loginBtn");
+loginBtn.addEventListener("click", () => {
+    const usernameInput = document.querySelector("#usernameInput").value;
+    for (let i = 0; i < users.length; i++) {
+        if (users[i].username == usernameInput) {
+            alert("SUCCESS");
+            break;
+        }
+    };
+});
+
+
