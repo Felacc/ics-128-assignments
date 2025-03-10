@@ -43,9 +43,9 @@ document.addEventListener("DOMContentLoaded", function () {
 // Get text from modal and verify the user exists
 const loginBtn = document.querySelector("#loginBtn");
 loginBtn.addEventListener("click", () => {
-    const usernameInput = document.querySelector("#usernameInput").value;
+    const userInput = document.querySelector("#userInput").value;
     for (let i = 0; i < users.length; i++) {
-        if (users[i].username == usernameInput) {
+        if (users[i].username == userInput) {
             alert("SUCCESS");
             break;
         }

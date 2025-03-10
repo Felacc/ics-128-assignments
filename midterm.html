@@ -64,11 +64,13 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <div class="input-group mb-3">
-                            <span class="input-group-text bg-secondary text-white border-dark" id="basic-addon1">@</span>
-                            <input id="usernameInput" type="text" class="form-control bg-secondary text-white border-dark" placeholder="Username" aria-label="Username"
-                                aria-describedby="basic-addon1">
-                        </div>
+                        <form action="">
+                            <div class="mb-3">
+                                <label for="userInput" class="form-label">Enter Username or Email:</label>
+                                <input type="text" class="form-control" id="userInput" placeholder="username or email@churchofthesubgenius.org" aria-describedby="userHelp">
+                                <div id="userHelp" class="form-text">Must enter valid user info.</div>
+                              </div>
+                        </form>
                     </div>
                     <div class="modal-footer">
                         <button id="loginBtn" type="button" class="btn btn-success">Login</button>
