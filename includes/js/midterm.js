@@ -7,6 +7,17 @@ class User {
         this.password = password;
         this.isAdmin = isAdmin;
         this.profileImg = profileImg;
+
+        this.htmlCard = `
+            <div class="card" style="width: 24rem;">
+            <img src="${profileImg}" class="card-img-top" alt="${firstName} ${lastName}'s profile picture">
+            <div class="card-body">
+                <h5 class="card-title">${firstName} ${lastName}</h5>
+                <p class="card-text">Email ${email}</p>
+                <p class="card-text">isAdmin ${isAdmin}</p>
+            </div>
+            </div>
+        `;
     }
 }
 
@@ -32,6 +43,21 @@ const nowellJ = new User("Jakob", "Nowell", "nowellj@churchthesubgenius.org", "s
 // Array of Users
 let users = [dobbsB, mothersbaughM, nixonM, riftZ, mavridesP, reubensP, byrneD, crumbR, hoslerM, willsD, conheimP, leideckerJ, wilsonE, gaughB, nowellJ];
 console.log(users);
+
+
+// Generate user cards
+// let cardTemplate = `
+// <div class="card" style="width: 18rem;">
+//   <img src="${profileImg}" class="card-img-top" alt="${firstName} ${lastName}'s profile picture">
+//   <div class="card-body">
+//     <h5 class="card-title">${firstName} ${lastName}</h5>
+//     <p class="card-text">Email ${email}</p>
+//     <p class="card-text">isAdmin ${isAdmin}</p>
+//   </div>
+// </div>
+// `;
+
+
 
 
 // Show modal on page load
@@ -66,10 +92,20 @@ loginBtn.addEventListener("click", () => {
     const passwordInput = document.querySelector("#passwordInput").value;
     for (let i = 0; i < users.length; i++) {
         if (users[i].email === emailInput && users[i].password === passwordInput) {
-            alert("SUCCESS");
+            login();
             break;
         }
     };
 });
+
+function login() {
+    users.forEach(user => {
+        const row = document.querySelector("div#cards.row");
+        let cardDiv = document.createElement("div");
+        cardDiv.classList.add("col", "m-3", "d-flex", "justify-content-center", "align-items-center");
+        cardDiv.innerHTML = user.htmlCard;
+        row.appendChild(cardDiv);
+    });
+}
 
 
