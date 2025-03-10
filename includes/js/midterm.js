@@ -1,23 +1,63 @@
 // Make User class using ES6
 class User {
-    constructor(firstName, lastName, email, username, isAdmin, profileImg) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.username = username;
-        this.isAdmin = isAdmin;
-        this.profileImg = profileImg;
+    constructor(firstName, lastName, email, username, isTopTier, profileImg) {
+        this._firstName = firstName;
+        this._lastName = lastName;
+        this._email = email;
+        this._username = username;
+        this._isTopTier = isTopTier;
+        this._profileImg = profileImg;
 
-        this.htmlCard = `
+        this._htmlCard = `
             <div class="card" style="width: 24rem;">
             <img src="${profileImg}" class="card-img-top" alt="${firstName} ${lastName}'s profile picture">
             <div class="card-body">
                 <h5 class="card-title">${firstName} ${lastName}</h5>
-                <p class="card-text">Email ${email}</p>
-                <p class="card-text">isAdmin ${isAdmin}</p>
+                <p class="card-text">Email: ${email}</p>
+                <p class="card-text">Top tier? ${isAdmin}</p>
             </div>
             </div>
         `;
+    }
+
+    get firstName() {
+        return this._firstName;
+    }
+
+    set firstName(firstName) {
+        this._firstName = firstName;
+    }
+
+    get lastName() {
+        return this._lastName;
+    }
+
+    set lastName(lastName) {
+        this._lastName = lastName;
+    }
+
+    get email() {
+        return this._email;
+    }
+
+    set email(email) {
+        this._email = email;
+    }
+
+    get isTopTier() {
+        return this._isTopTier;
+    }
+
+    set isTopTier(isTopTier) {
+        this._isTopTier = isTopTier;
+    }
+
+    get profileImg() {
+        return this._profileImg;
+    }
+
+    set profileImg(profileImg) {
+        this._profileImg = profileImg;
     }
 }
 
