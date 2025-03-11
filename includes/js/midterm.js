@@ -78,9 +78,9 @@ class User {
     set bestMoves(bestMoves) {
         this._bestMoves = `
             <ol>
-                <li>${bestMoves[0]}</li>
-                <li>${bestMoves[1]}</li>
-                <li>${bestMoves[2]}</li>
+                <li id="bestMove">${bestMoves[0]}</li>
+                <li id="bestMove">${bestMoves[1]}</li>
+                <li id="bestMove">${bestMoves[2]}</li>
             </ol>
         `;
     }
@@ -110,6 +110,18 @@ class User {
         return cardDiv;
     }
 
+    colorCharacterCard(card) {
+        card.querySelector("#thisName").style.color = "tomato";
+        card.querySelector("#email").style.color = "dodgerblue";
+        card.querySelector("#isAdmin").style.color = "violet";
+        card.querySelector("#rank").style.color = "mediumseagreen";
+        const bestMoves = card.querySelectorAll("#bestMove");
+
+        bestMoves.forEach((move) => {
+            move.style.color = "yellow";
+        }) 
+    }
+
     removeCards() {
         // Remove potential html from previous logins and hide login modal
         row.innerHTML = "";
@@ -127,6 +139,7 @@ class User {
         users.forEach(user => {
             if (user === this || user.isAdmin) {
                 const cardDiv = user.generateCharacterCard();
+                this.colorCharacterCard(cardDiv);
                 row.appendChild(cardDiv);
                 this.removeDeleteBtn(user);
             }
@@ -144,6 +157,7 @@ class Admin extends User {
         super.removeCards();
         users.forEach(user => {
             const cardDiv = user.generateCharacterCard();
+            super.colorCharacterCard(cardDiv);
             row.appendChild(cardDiv);
             this.addDeleteBtn(user);
         });
