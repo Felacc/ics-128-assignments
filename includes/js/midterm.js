@@ -14,7 +14,7 @@ class User {
             <div class="card-body">
                 <h5 class="card-title">${firstName} ${lastName}</h5>
                 <p class="card-text">Email: ${email}</p>
-                <p class="card-text">Top tier? ${isAdmin}</p>
+                <p class="card-text">Top tier? ${isTopTier}</p>
             </div>
             </div>
         `;
@@ -44,6 +44,14 @@ class User {
         this._email = email;
     }
 
+    get username() {
+        return this._username;
+    }
+
+    set username(username) {
+        this._username = username;
+    }
+
     get isTopTier() {
         return this._isTopTier;
     }
@@ -58,6 +66,14 @@ class User {
 
     set profileImg(profileImg) {
         this._profileImg = profileImg;
+    }
+
+    get htmlCard() {
+        return this._htmlCard;
+    }
+
+    set htmlCard(htmlCard) {
+        this._htmlCard = htmlCard;
     }
 }
 
@@ -77,50 +93,36 @@ const yoshi = new User("Yoshi", "", "dinoboy@fucknintendo.org", "yoshi", false, 
 const samus = new User("Samus", "Aran", "chargeshot@fucknintendo.org", "samus", false, "images/midterm/samus.png");
 const luigi = new User("Luigi", "", "brother2@fucknintendo.org", "luigi", false, "images/midterm/luigi.webp");
 const doctorMario = new User("Doctor", "Mario", "imarealdoctor@fucknintendo.org", "doc", false, "images/midterm/doc.webp");
-const ganondorf = new User("Ganondorf", "", "iwishiwascaptainfalcon@fucknintendo.org", "ganondorf", false, "images/midterm/ganon.webp");
+const ganondorf = new User("Ganondorf", "", "woah@fucknintendo.org", "ganondorf", false, "images/midterm/ganon.webp");
 const mario = new User("Mario", "", "brother1@fucknintendo.org", "mario", false, "images/midterm/mario.png");
 
 // Array of Users
 let users = [fox, marth, jigglypuff, falco, sheik, captainFalcon, peach, iceClimbers, pikachu, yoshi, samus, luigi, doctorMario, ganondorf, mario];
 console.log(users);
 
-
-// Generate user cards
-// let cardTemplate = `
-// <div class="card" style="width: 18rem;">
-//   <img src="${profileImg}" class="card-img-top" alt="${firstName} ${lastName}'s profile picture">
-//   <div class="card-body">
-//     <h5 class="card-title">${firstName} ${lastName}</h5>
-//     <p class="card-text">Email ${email}</p>
-//     <p class="card-text">isAdmin ${isAdmin}</p>
-//   </div>
-// </div>
-// `;
-
-
+// Other global variables
+const loginModal = new bootstrap.Modal(document.querySelector("#loginModal"));
+const loginBtn = document.querySelector("#loginBtn");
+const usernameInput = document.querySelector("#usernameInput");
 
 
 // Show modal on page load
-document.addEventListener("DOMContentLoaded", function () {
-    const loginModal = new bootstrap.Modal(document.querySelector("#loginModal"));
+document.addEventListener("DOMContentLoaded", () => {
     loginModal.show();
-
     // Fixes issues where pressing enter causes form submission
     // makes it so login button is pressed instead
-    document.querySelector("#usernameInput").addEventListener("keypress", function (event) {
+    usernameInput.addEventListener("keypress", (event) => {
         if (event.key === "Enter") {
             event.preventDefault(); // Prevents form submission if inside a form
-            document.querySelector("#loginBtn").click(); // Triggers login button click
+            loginBtn.click(); // Triggers login button click
         }
     });
 });
 
 // Get text from modal and verify the user exists
-const loginBtn = document.querySelector("#loginBtn");
 loginBtn.addEventListener("click", () => {
-    const usernameInput= document.querySelector("#usernameInput").value;
     for (let i = 0; i < users.length; i++) {
-        if (users[i].username === usernameInput) {
+        if (users[i].username === usernameInput.value) {
             login();
             break;
         }
@@ -130,6 +132,8 @@ loginBtn.addEventListener("click", () => {
 function login() {
     const row = document.querySelector("div#cards.row");
     row.innerHTML = "";
+
+    loginModal.hide();
     users.forEach(user => {
         const cardDiv = document.createElement("div");
         cardDiv.classList.add("col", "m-3", "d-flex", "justify-content-center", "align-items-center");
