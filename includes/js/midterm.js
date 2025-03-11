@@ -1,5 +1,12 @@
 // Global rank variable for users - users must be instantiated in order of rank
 let rank = 1;
+
+// Global DOM variables
+const loginModal = new bootstrap.Modal(document.querySelector("#loginModal"));
+const loginBtn = document.querySelector("#loginBtn");
+const usernameInput = document.querySelector("#usernameInput");
+const row = document.querySelector("div#cards.row"); // row that contains cards
+
 // Make User class using ES6
 class User {
     constructor(firstName, lastName, email, username, isAdmin, profileImg) {
@@ -15,6 +22,7 @@ class User {
         rank++; // increment global rank var
     }
 
+    // Getters and Setters
     get firstName() {
         return this._firstName;
     }
@@ -80,16 +88,78 @@ class User {
     get rank() {
         return this._rank;
     }
+
+
+    generateCharacterCard() {
+        const cardDiv = document.createElement("div");
+        cardDiv.classList.add("col", "m-3", "d-flex", "justify-content-center", "align-items-center");
+        cardDiv.innerHTML =
+            `<div id="${this.username}" class="card" style="width: 24rem;">
+                    <img src="${this.profileImg}" class="card-img-top" alt="${this.firstName} ${this.lastName}'s profile picture">
+                    <div class="card-body">
+                        <h5 class="card-title"><span id="thisName">${this.firstName} ${this.lastName}</span></h5>
+                        <p class="card-text">Email: <span id="email">${this.email}</span></p>
+                        <p class="card-text">User Type: <span id="isAdmin">${this.constructor.name}</span></p>
+                        <p class="card-text">Rank: <span id="rank">${this.rank}</span></p>
+                        <p class="card-text">Best Moves: <br>
+                            <span id="bestMoves">${this.bestMoves}</span>
+                        </p>
+                        <button id="delBtn" class="btn btn-danger">Delete</button>
+                    </div>
+                </div>`;
+        return cardDiv;
+    }
+
+    hideCards() {
+        // Remove potential html from previous logins and hide login modal
+        row.innerHTML = "";
+        loginModal.hide();
+    }
+
+    // Shows only themselves and admins for since basic user role
+    login(users) {
+        this.hideCards();
+        users.forEach(user => {
+            if (user === this || user.isAdmin) {
+                const cardDiv = user.generateCharacterCard();
+                row.appendChild(cardDiv);
+            }
+        });
+    }
+}
+
+class Admin extends User {
+    constructor(firstName, lastName, email, username, isAdmin, profileImg) {
+        super(firstName, lastName, email, username, isAdmin, profileImg);
+    }
+
+    // shows all users
+    login(users) {
+        super.hideCards();
+        users.forEach(user => {
+            const cardDiv = user.generateCharacterCard();
+            row.appendChild(cardDiv);
+        });
+    }
+
+    showDeleteUserButtons() {
+
+    }
+
+    deleteUser(user) {
+        let userCard = document.querySelector("#" + user.username);
+        userCard.style.display = "none";
+    }
 }
 
 // Admin Users
-const fox = new User("Fox", "McCloud", "marthistrash@fucknintendo.org", "fox", true, "images/midterm/fox.webp");
+const fox = new Admin("Fox", "McCloud", "marthistrash@fucknintendo.org", "fox", true, "images/midterm/fox.webp");
 fox.bestMoves = ["Up Smash", "Drill", "Shine"];
 
-const marth = new User("Marth", "", "fsmash@fucknintendo.org", "marth", true, "images/midterm/marth.webp");
+const marth = new Admin("Marth", "", "fsmash@fucknintendo.org", "marth", true, "images/midterm/marth.webp");
 marth.bestMoves = ["Forward Smash", "Neutral Air", "Down Tilt"];
 
-const jigglypuff = new User("jigglypuff", "", "sixjumps@fucknintendo.org", "jigglypuff", true, "images/midterm/jigglypuff.webp");
+const jigglypuff = new Admin("jigglypuff", "", "sixjumps@fucknintendo.org", "jigglypuff", true, "images/midterm/jigglypuff.webp");
 jigglypuff.bestMoves = ["Rest", "Back Air", "Has 6 jumps"];
 
 // Regular Users
@@ -130,12 +200,7 @@ const mario = new User("Mario", "", "brother1@fucknintendo.org", "mario", false,
 mario.bestMoves = ["It's fuckin", "Mario", "Brother..."];
 // Array of Users
 let users = [fox, marth, jigglypuff, falco, sheik, captainFalcon, peach, iceClimbers, pikachu, yoshi, samus, luigi, doctorMario, ganondorf, mario];
-console.log(users);
 
-// Global DOM variables
-const loginModal = new bootstrap.Modal(document.querySelector("#loginModal"));
-const loginBtn = document.querySelector("#loginBtn");
-const usernameInput = document.querySelector("#usernameInput");
 
 
 // Show modal on page load
@@ -155,60 +220,11 @@ document.addEventListener("DOMContentLoaded", () => {
 loginBtn.addEventListener("click", () => {
     for (let i = 0; i < users.length; i++) {
         if (users[i].username === usernameInput.value) {
-            login(users[i]);
+            users[i].login(users);
             break;
         }
     }
 });
-
-function generateCharacterCard(character) {
-    const cardDiv = document.createElement("div");
-    cardDiv.classList.add("col", "m-3", "d-flex", "justify-content-center", "align-items-center");
-    cardDiv.innerHTML =
-        `<div id="${character.username}" class="card" style="width: 24rem;">
-                <img src="${character.profileImg}" class="card-img-top" alt="${character.firstName} ${character.lastName}'s profile picture">
-                <div class="card-body">
-                    <h5 class="card-title"><span id="characterName">${character.firstName} ${character.lastName}</span></h5>
-                    <p class="card-text">Email: <span id="email">${character.email}</span></p>
-                    <p class="card-text">Top tier? <span id="isAdmin">${character.isAdmin}</span></p>
-                    <p class="card-text">Rank: <span id="rank">${character.rank}</span></p>
-                    <p class="card-text">Best Moves: <br>
-                        <span id="bestMoves">${character.bestMoves}</span>
-                    </p>
-                    <button id="delBtn" class="btn btn-danger">Delete</button>
-                </div>
-            </div>`;
-    return cardDiv;
-}
-
-function login(user) {
-    // Remove potential html from previous logins and hide login modal
-    const row = document.querySelector("div#cards.row");
-    row.innerHTML = "";
-    loginModal.hide();
-
-    // Display content based on user role
-    // Shows all for admins
-    // Shows only themselves and admins for everyone else
-    if (user.isAdmin) {
-        users.forEach(character => {
-            const cardDiv = generateCharacterCard(character);
-            row.appendChild(cardDiv);
-        });
-    } else {
-        users.forEach(character => {
-            if (character === user || character.isAdmin) {
-                const cardDiv = generateCharacterCard(character);
-                row.appendChild(cardDiv);
-            }
-        });
-    }
-}
-
-function deleteUser(user) {
-    let userCard = document.querySelector("#" + user.username);
-    userCard.style.display = "none";
-}
 
 
 // What  I want to do :
