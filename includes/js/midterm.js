@@ -256,6 +256,8 @@ run();
 
 
 // What  I want to do :
-// Add a delete function for admins
-// Choose a character?
-// Add colors
+// Choose a character? - this would be cool
+// Add video background
+// Add username to cards
+// Add rank updates when deleted
+// Add the ability to set ranks???? - each rank would become an object property and there would have to be a checksum to ensure that the rank is not taken, and not greater than the max # of users

@@ -8,9 +8,26 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="includes/css/style.css">
+
+    <style>
+        video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            object-fit: cover;
+        }
+    </style>
 </head>
 
 <body class="bg-secondary">
+
+    <video autoplay muted>
+        <source src="images/Super Smash Bros. Melee - Opening HD 720.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
 
     <!--Header-->
     <header>
@@ -85,7 +102,7 @@
             </div>
         </div>
     </main>
-    
+
     <!--Footer-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
