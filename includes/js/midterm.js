@@ -123,23 +123,36 @@ document.addEventListener("DOMContentLoaded", () => {
 loginBtn.addEventListener("click", () => {
     for (let i = 0; i < users.length; i++) {
         if (users[i].username === usernameInput.value) {
-            login();
+            login(users[i]);
             break;
         }
-    };
+    }
 });
 
-function login() {
+function login(user) {
+    // Remove potential html from previous logins and hide login modal
     const row = document.querySelector("div#cards.row");
     row.innerHTML = "";
-
     loginModal.hide();
-    users.forEach(user => {
-        const cardDiv = document.createElement("div");
-        cardDiv.classList.add("col", "m-3", "d-flex", "justify-content-center", "align-items-center");
-        cardDiv.innerHTML = user.htmlCard;
-        row.appendChild(cardDiv);
-    });
+
+    // Display content based on user role
+    // Shows all for top tier's 
+    // Shows only themselves and top tiers for everyone else
+    if (user.isTopTier) {
+        users.forEach(user => {
+            const cardDiv = document.createElement("div");
+            cardDiv.classList.add("col", "m-3", "d-flex", "justify-content-center", "align-items-center");
+            cardDiv.innerHTML = user.htmlCard;
+            row.appendChild(cardDiv);
+        });
+    } else {
+        users.forEach(character => {
+            if (character === user || character.isTopTier) {
+                const cardDiv = document.createElement("div");
+                cardDiv.classList.add("col", "m-3", "d-flex", "justify-content-center", "align-items-center");
+                cardDiv.innerHTML = character.htmlCard;
+                row.appendChild(cardDiv);
+            }
+        });
+    }
 }
-
-
