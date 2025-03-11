@@ -2,12 +2,12 @@
 let rank = 1;
 // Make User class using ES6
 class User {
-    constructor(firstName, lastName, email, username, isTopTier, profileImg) {
+    constructor(firstName, lastName, email, username, isAdmin, profileImg) {
         this._firstName = firstName;
         this._lastName = lastName;
         this._email = email;
         this._username = username;
-        this._isTopTier = isTopTier;
+        this._isAdmin = isAdmin;
         this._profileImg = profileImg;
         this._rank = rank;
         this._bestMoves = "best moves currently unavailable";
@@ -47,12 +47,12 @@ class User {
         this._username = username;
     }
 
-    get isTopTier() {
-        return this._isTopTier;
+    get isAdmin() {
+        return this._isAdmin;
     }
 
-    set isTopTier(isTopTier) {
-        this._isTopTier = isTopTier;
+    set isAdmin(isAdmin) {
+        this._isAdmin = isAdmin;
     }
 
     get profileImg() {
@@ -165,16 +165,17 @@ function generateCharacterCard(character) {
     const cardDiv = document.createElement("div");
     cardDiv.classList.add("col", "m-3", "d-flex", "justify-content-center", "align-items-center");
     cardDiv.innerHTML =
-        `<div class="card" style="width: 24rem;">
+        `<div id="${character.username}" class="card" style="width: 24rem;">
                 <img src="${character.profileImg}" class="card-img-top" alt="${character.firstName} ${character.lastName}'s profile picture">
                 <div class="card-body">
                     <h5 class="card-title"><span id="characterName">${character.firstName} ${character.lastName}</span></h5>
                     <p class="card-text">Email: <span id="email">${character.email}</span></p>
-                    <p class="card-text">Top tier? <span id="isTopTier">${character.isTopTier}</span></p>
+                    <p class="card-text">Top tier? <span id="isAdmin">${character.isAdmin}</span></p>
                     <p class="card-text">Rank: <span id="rank">${character.rank}</span></p>
                     <p class="card-text">Best Moves: <br>
                         <span id="bestMoves">${character.bestMoves}</span>
                     </p>
+                    <button id="delBtn" class="btn btn-danger">Delete</button>
                 </div>
             </div>`;
     return cardDiv;
@@ -187,19 +188,30 @@ function login(user) {
     loginModal.hide();
 
     // Display content based on user role
-    // Shows all for top tier's 
-    // Shows only themselves and top tiers for everyone else
-    if (user.isTopTier) {
+    // Shows all for admins
+    // Shows only themselves and admins for everyone else
+    if (user.isAdmin) {
         users.forEach(character => {
             const cardDiv = generateCharacterCard(character);
             row.appendChild(cardDiv);
         });
     } else {
         users.forEach(character => {
-            if (character === user || character.isTopTier) {
+            if (character === user || character.isAdmin) {
                 const cardDiv = generateCharacterCard(character);
                 row.appendChild(cardDiv);
             }
         });
     }
 }
+
+function deleteUser(user) {
+    let userCard = document.querySelector("#" + user.username);
+    userCard.style.display = "none";
+}
+
+
+// What  I want to do :
+// Add a delete function for admins
+// Choose a character?
+// 
