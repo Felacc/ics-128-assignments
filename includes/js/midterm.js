@@ -104,25 +104,31 @@ class User {
                         <p class="card-text">Best Moves: <br>
                             <span id="bestMoves">${this.bestMoves}</span>
                         </p>
-                        <button id="delBtn" class="btn btn-danger">Delete</button>
+                        <button id="delBtn${this.username}" class="btn btn-danger">Delete</button>
                     </div>
                 </div>`;
         return cardDiv;
     }
 
-    hideCards() {
+    removeCards() {
         // Remove potential html from previous logins and hide login modal
         row.innerHTML = "";
         loginModal.hide();
     }
 
+    removeDeleteBtn(user) {
+        const delBtn = document.querySelector("#delBtn" + user.username);
+        delBtn.style.display = "none";
+    }
+
     // Shows only themselves and admins for since basic user role
     login(users) {
-        this.hideCards();
+        this.removeCards();
         users.forEach(user => {
             if (user === this || user.isAdmin) {
                 const cardDiv = user.generateCharacterCard();
                 row.appendChild(cardDiv);
+                this.removeDeleteBtn(user);
             }
         });
     }
@@ -135,21 +141,24 @@ class Admin extends User {
 
     // shows all users
     login(users) {
-        super.hideCards();
+        super.removeCards();
         users.forEach(user => {
             const cardDiv = user.generateCharacterCard();
             row.appendChild(cardDiv);
+            this.addDeleteBtn(user);
         });
     }
 
-    showDeleteUserButtons() {
+    addDeleteBtn(user) {
+        const delBtn = document.querySelector("#delBtn" + user.username);
+        delBtn.style.display = "block";
 
+        delBtn.addEventListener("click", function () {
+            const userCard = document.querySelector("#" + user.username);
+            userCard.style.display = "none";
+        });
     }
 
-    deleteUser(user) {
-        let userCard = document.querySelector("#" + user.username);
-        userCard.style.display = "none";
-    }
 }
 
 // Admin Users
@@ -202,32 +211,37 @@ mario.bestMoves = ["It's fuckin", "Mario", "Brother..."];
 let users = [fox, marth, jigglypuff, falco, sheik, captainFalcon, peach, iceClimbers, pikachu, yoshi, samus, luigi, doctorMario, ganondorf, mario];
 
 
+function run() {
+    // Show modal on page load
+    document.addEventListener("DOMContentLoaded", () => {
+        loginModal.show();
+        // Fixes issues where pressing enter causes form submission
+        // makes it so login button is pressed instead
+        usernameInput.addEventListener("keypress", (event) => {
+            if (event.key === "Enter") {
+                event.preventDefault(); // Prevents form submission if inside a form
+                loginBtn.click(); // Triggers login button click
+            }
+        });
+    });
 
-// Show modal on page load
-document.addEventListener("DOMContentLoaded", () => {
-    loginModal.show();
-    // Fixes issues where pressing enter causes form submission
-    // makes it so login button is pressed instead
-    usernameInput.addEventListener("keypress", (event) => {
-        if (event.key === "Enter") {
-            event.preventDefault(); // Prevents form submission if inside a form
-            loginBtn.click(); // Triggers login button click
+    // Get text from modal and verify the user exists
+    loginBtn.addEventListener("click", () => {
+        for (let i = 0; i < users.length; i++) {
+            if (users[i].username === usernameInput.value) {
+                users[i].login(users);
+                break;
+            }
         }
     });
-});
+}
 
-// Get text from modal and verify the user exists
-loginBtn.addEventListener("click", () => {
-    for (let i = 0; i < users.length; i++) {
-        if (users[i].username === usernameInput.value) {
-            users[i].login(users);
-            break;
-        }
-    }
-});
+
+run();
+
 
 
 // What  I want to do :
 // Add a delete function for admins
 // Choose a character?
-// 
+// Add colors
