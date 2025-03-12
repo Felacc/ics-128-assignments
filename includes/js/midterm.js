@@ -1,3 +1,41 @@
+/*
+INSTRUCTIONS:
+1.  In the "Username:" text box enter the username of either an admin or a regular user
+
+    Admin Usernames: fox, marth, puff
+
+    Regular Usernames: falco, sheik, captainFalcon, peach, iceClimbers, pikachu, yoshi, samus, luigi, doctorMario, ganondorf, mario
+
+
+2.  View content displayed to you...
+
+    Regular Users: - cards for each admin and your own cards
+
+    Admin Users: - cards for all users
+                 - are able to delete cards for each user that isn't an admin (user ranks automatically adjust)
+
+
+REFLECTION:
+
+Doing this project I feel that I learned how to better use ES6 and incorporate my object-oriented programming skills into writing JavaScript.
+I'm pretty happy with how this project came along because I think I did a better job with using scope and keeping all my logic within my classes,
+than I have previously.
+
+One struggle I think I have and have created for myself is complexity. My program does some things weirdly. 
+For example how I initialize the ranks is kinda silly. Using a global counter variable (called currentRank) that increments everytime a user object is created.
+This causes the restriction that users must be initialized in order of rank. It also added some difficulty when implementing my delete user functionality.
+Another issue it caused is that it stopped me from adding the feature of being able to adjust the rank of users with up and down arrows on each card,
+because the way I set up the ranks and generate the cards is just a bit weird.
+
+There are definitely more features I wish I added, but I need to take a pause on this project for now and work on other things.
+
+I still have a lot to learn in JS. Especially regarding making better design choices along the way, this would make adding more features less taxing.
+
+*/
+
+
+
+
 // Global rank variable for users - users must be instantiated in order of rank
 let currentRank = 1;
 
@@ -179,7 +217,7 @@ class Admin extends User {
                 // If user is not current user
                 // and is not an admin
                 // add delete button
-                if (!(user === this || user.isAdmin)) {
+                if (!(user.isAdmin)) {
                     this.addDeleteBtn(user, users);
                 } else {
                     super.removeDeleteBtn(user);
@@ -285,11 +323,9 @@ function run() {
     });
 }
 
-
 run();
 
-
-
 // Potential additions:
-// Choose a character screen (like with icons)? - this would be cool
+// Add fix for when login modal is clicked out of
+// Choose a character screen (like with icons)? - this would be cool (think menu)
 // Add the ability to set ranks???? - each rank would become an object property and there would have to be a checksum to ensure that the rank is not taken, and not greater than the max # of users
