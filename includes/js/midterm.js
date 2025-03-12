@@ -312,14 +312,35 @@ function run() {
         });
     });
 
+    // if navbar login button is pressed
+    document.querySelector("#navLoginBtn").addEventListener("click", () => {
+        loginModal.show();
+    });
+
     // Get text from modal and verify the user exists
     loginBtn.addEventListener("click", () => {
-        for (let i = 0; i < users.length; i++) {
-            if (users[i].username === usernameInput.value) {
-                users[i].login(users);
-                break;
+        // verify user input w/ regex
+        const reggie = /^[0-9a-zA-Z]+$/;
+        
+        if (reggie.test(usernameInput.value))  {
+            let userExists = false;
+            for (let i = 0; i < users.length; i++) {
+                if (users[i].username === usernameInput.value) {
+                    userExists = true;
+                    users[i].login(users);
+                    break;
+                }
             }
+
+            if (!(userExists)) {
+                document.querySelector("div#errorMessage").textContent = "User not found";
+            }
+        } else {
+            document.querySelector("div#errorMessage").textContent = "Please use only alphanumeric characters";
         }
+
+    
+        
     });
 }
 
