@@ -290,7 +290,6 @@ run();
 
 
 
-// What  I want to do :
-// Choose a character? - this would be cool
-// Add username to cards
+// Potential additions:
+// Choose a character screen (like with icons)? - this would be cool
 // Add the ability to set ranks???? - each rank would become an object property and there would have to be a checksum to ensure that the rank is not taken, and not greater than the max # of users
