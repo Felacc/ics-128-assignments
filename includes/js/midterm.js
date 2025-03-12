@@ -18,6 +18,7 @@ class User {
         this._profileImg = profileImg;
         this._rank = rank;
         this._bestMoves = "best moves currently unavailable";
+        this._deleted = false;
 
         rank++; // increment global rank var
     }
@@ -89,6 +90,18 @@ class User {
         return this._rank;
     }
 
+    set rank(rank) {
+        this._rank = rank;
+    }
+
+    get deleted() {
+        return this._deleted;
+    }
+
+    set deleted(deleted) {
+        this._deleted = deleted;
+    }
+
 
     generateCharacterCard() {
         const cardDiv = document.createElement("div");
@@ -119,7 +132,7 @@ class User {
 
         bestMoves.forEach((move) => {
             move.style.color = "yellow";
-        }) 
+        })
     }
 
     removeCards() {
@@ -156,23 +169,42 @@ class Admin extends User {
     login(users) {
         super.removeCards();
         users.forEach(user => {
-            const cardDiv = user.generateCharacterCard();
-            super.colorCharacterCard(cardDiv);
-            row.appendChild(cardDiv);
-            this.addDeleteBtn(user);
+            if (!(user.deleted)) {
+                const cardDiv = user.generateCharacterCard();
+                super.colorCharacterCard(cardDiv);
+                row.appendChild(cardDiv);
+
+                // If user is not current user
+                // and is not an admin
+                // add delete button
+                if (!(user === this || user.isAdmin)) {
+                    this.addDeleteBtn(user, users);
+                } else {
+                    super.removeDeleteBtn(user);
+                }
+            }
         });
     }
 
-    addDeleteBtn(user) {
+    addDeleteBtn(user, users) {
         const delBtn = document.querySelector("#delBtn" + user.username);
         delBtn.style.display = "block";
 
-        delBtn.addEventListener("click", function () {
+        delBtn.addEventListener("click", () => {
             const userCard = document.querySelector("#" + user.username);
-            userCard.style.display = "none";
+            userCard.remove();
+            user.deleted = true;
+
+            // Update ranks of remaining users
+            users.forEach(u => {
+                if (!u.deleted && u.rank > user.rank) {
+                    u.rank--; // Increase rank of users ranked lower
+                }
+            });
+
+            this.login(users); // login again to regenerate cards
         });
     }
-
 }
 
 // Admin Users
