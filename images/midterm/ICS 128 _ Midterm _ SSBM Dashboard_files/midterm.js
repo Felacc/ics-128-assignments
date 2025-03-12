@@ -214,7 +214,7 @@ fox.bestMoves = ["Up Smash", "Drill", "Shine"];
 const marth = new Admin("Marth", "", "fsmash@fucknintendo.org", "marth", true, "images/midterm/marth.webp");
 marth.bestMoves = ["Forward Smash", "Neutral Air", "Down Tilt"];
 
-const jigglypuff = new Admin("jigglypuff", "", "sixjumps@fucknintendo.org", "puff", true, "images/midterm/jigglypuff.webp");
+const jigglypuff = new Admin("Jigglypuff", "", "sixjumps@fucknintendo.org", "puff", true, "images/midterm/jigglypuff.webp");
 jigglypuff.bestMoves = ["Rest", "Back Air", "Has 6 jumps"];
 
 // Regular Users
@@ -230,10 +230,10 @@ captainFalcon.bestMoves = ["Knee", "Stomp", "Falcon Punch"];
 const peach = new User("Princess", "Peach", "spintowin@fucknintendo.org", "peach", false, "images/midterm/peach.webp");
 peach.bestMoves = ["Down Smash", "Down Smash", "There's only Down Smash"];
 
-const iceClimbers = new User("Ice.", "Climbers", "wobble@fucknintendo.org", "ics", false, "images/midterm/ics.webp");
+const iceClimbers = new User("Ice.", "Climbers", "wobble@fucknintendo.org", "iceclimbers", false, "images/midterm/ics.webp");
 iceClimbers.bestMoves = ["Wobbling :(", "I genuinely don't know", "Their wavedash looks cool though"];
 
-const pikachu = new User("Pikachu", "", "pikapika@fucknintendo.org", "pika", false, "images/midterm/pikachu.webp");
+const pikachu = new User("Pikachu", "", "pikapika@fucknintendo.org", "pikachu", false, "images/midterm/pikachu.webp");
 pikachu.bestMoves = ["Neutral Air", "Down B", "Pika Pika"];
 
 const yoshi = new User("Yoshi", "", "dinoboy@fucknintendo.org", "yoshi", false, "images/midterm/yoshi.webp");
@@ -248,7 +248,7 @@ luigi.bestMoves = ["His wavedash is nasty", "Down-left+Jump+R", "Down-right+Jump
 const doctorMario = new User("Doctor", "Mario", "imarealdoctor@fucknintendo.org", "doc", false, "images/midterm/doc.webp");
 doctorMario.bestMoves = ["His Doctorate", "Gives giant pills to patients", "Good work ethic"];
 
-const ganondorf = new User("Ganondorf", "", "swagless@fucknintendo.org", "ganon", false, "images/midterm/ganon.webp");
+const ganondorf = new User("Ganondorf", "", "woah@fucknintendo.org", "ganondorf", false, "images/midterm/ganon.webp");
 ganondorf.bestMoves = ["Idk", "this character", "is shit imo"];
 
 const mario = new User("Mario", "", "brother1@fucknintendo.org", "mario", false, "images/midterm/mario.png");
@@ -290,5 +290,4 @@ run();
 
 // What  I want to do :
 // Choose a character? - this would be cool
-// Add username to cards
 // Add the ability to set ranks???? - each rank would become an object property and there would have to be a checksum to ensure that the rank is not taken, and not greater than the max # of users

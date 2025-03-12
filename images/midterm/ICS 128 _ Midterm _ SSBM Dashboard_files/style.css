@@ -1,0 +1,27 @@
+/* Nav */
+.nav-link {
+    color: grey;
+}
+
+.nav-link:hover {
+    color: white;
+}
+
+
+#navLinkSelected {
+    color: white;
+}
+
+/* Cards */
+
+.card {
+    background-color: #212529;
+    color: white;
+}
+
+.card input,
+.card .input-group #basic-addon1 {
+    background-color: #6c757d;
+    border: 2px solid #212529;
+    color: white;
+}
