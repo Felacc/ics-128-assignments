@@ -254,7 +254,7 @@ fox.bestMoves = ["Up Smash", "Drill", "Shine"];
 const marth = new Admin("Marth", "", "fsmash@fucknintendo.org", "marth", true, "images/midterm/marth.webp");
 marth.bestMoves = ["Forward Smash", "Neutral Air", "Down Tilt"];
 
-const jigglypuff = new Admin("jigglypuff", "", "sixjumps@fucknintendo.org", "puff", true, "images/midterm/jigglypuff.webp");
+const jigglypuff = new Admin("Jigglypuff", "", "sixjumps@fucknintendo.org", "puff", true, "images/midterm/jigglypuff.webp");
 jigglypuff.bestMoves = ["Rest", "Back Air", "Has 6 jumps"];
 
 // Regular Users
