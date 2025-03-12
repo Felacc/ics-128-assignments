@@ -1,5 +1,5 @@
 // Global rank variable for users - users must be instantiated in order of rank
-let rank = 1;
+let currentRank = 1;
 
 // Global DOM variables
 const loginModal = new bootstrap.Modal(document.querySelector("#loginModal"));
@@ -16,11 +16,11 @@ class User {
         this._username = username;
         this._isAdmin = isAdmin;
         this._profileImg = profileImg;
-        this._rank = rank;
-        this._bestMoves = "best moves currently unavailable";
+        this._rank = currentRank;
+        this._bestMoves = ["best", "moves", "currently unavailable"];
         this._deleted = false;
 
-        rank++; // increment global rank var
+        currentRank++; // increment global rank var
     }
 
     // Getters and Setters
@@ -111,6 +111,7 @@ class User {
                     <img src="${this.profileImg}" class="card-img-top" alt="${this.firstName} ${this.lastName}'s profile picture">
                     <div class="card-body">
                         <h5 class="card-title"><span id="thisName">${this.firstName} ${this.lastName}</span></h5>
+                        <p class="card-text">Username: <span id="username">${this.username}</span></p>
                         <p class="card-text">Email: <span id="email">${this.email}</span></p>
                         <p class="card-text">User Type: <span id="isAdmin">${this.constructor.name}</span></p>
                         <p class="card-text">Rank: <span id="rank">${this.rank}</span></p>
@@ -125,6 +126,7 @@ class User {
 
     colorCharacterCard(card) {
         card.querySelector("#thisName").style.color = "tomato";
+        card.querySelector("#username").style.color = "mediumseagreen";
         card.querySelector("#email").style.color = "dodgerblue";
         card.querySelector("#isAdmin").style.color = "violet";
         card.querySelector("#rank").style.color = "mediumseagreen";
