@@ -6,6 +6,7 @@ INSTRUCTIONS:
 
     Regular Usernames: falco, sheik, captainFalcon, peach, iceClimbers, pikachu, yoshi, samus, luigi, doctorMario, ganondorf, mario
 
+    Note: Uses regex to validate username
 
 2.  View content displayed to you...
 
@@ -13,6 +14,9 @@ INSTRUCTIONS:
 
     Admin Users: - cards for all users
                  - are able to delete cards for each user that isn't an admin (user ranks automatically adjust)
+
+
+3. You can login to another user by pressing the Choose a Character button on the navbar
 
 
 REFLECTION:
@@ -156,7 +160,13 @@ class User {
                         <p class="card-text">Best Moves: <br>
                             <span id="bestMoves">${this.bestMoves}</span>
                         </p>
-                        <button id="delBtn${this.username}" class="btn btn-danger">Delete</button>
+                        <div id="btnContainer" class="container-fluid d-flex justify-content-between p-0"> 
+                            <div id="rankBtns" class="container p-0"> 
+                                <button id="rankUpBtn${this.username}" class="btn btn-dark"><i class="bi bi-chevron-up fs-5"></i></button>
+                                <button id="rankDownBtn${this.username}" class="btn btn-dark"><i class="bi bi-chevron-down fs-5"></i></button>
+                            </div>
+                            <button id="delBtn${this.username}" class="btn btn-danger">Delete</button>
+                        </div>
                     </div>
                 </div>`;
         return cardDiv;
@@ -184,6 +194,10 @@ class User {
     removeDeleteBtn(user) {
         const delBtn = document.querySelector("#delBtn" + user.username);
         delBtn.style.display = "none";
+    }
+
+    removeRanksBtns(user) {
+        const rankUpBtn = document.querySelector;
     }
 
     // Shows only themselves and admins for since basic user role
@@ -244,6 +258,10 @@ class Admin extends User {
 
             this.login(users); // login again to regenerate cards
         });
+    }
+
+    addRankUpBtn(user, users) {
+
     }
 }
 
