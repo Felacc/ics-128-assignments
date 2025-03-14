@@ -219,7 +219,6 @@ class User {
                 row.appendChild(cardDiv);
                 this.removeDeleteBtn(user);
                 this.removeRanksBtns(user);
-
             }
         });
     }
@@ -275,7 +274,10 @@ class Admin extends User {
                 }
             });
 
-            this.login(users); // login again to regenerate cards
+            // Remove deleted user from array
+            const indexOfDeleted = users.indexOf(user);
+            users.splice(indexOfDeleted, 1);
+            this.login(users); // login again to regenerate cards with new array;
         });
     }
 
@@ -286,8 +288,10 @@ class Admin extends User {
         const rankUpBtn = document.querySelector("#rankUpBtn" + user.username);
         const rankDownBtn = document.querySelector("#rankDownBtn" + user.username);
 
-        // 4 is the highest rank a normal user can have (admin user ranks cant be changed)
-        if (!(user.rank === 4)) {
+        // Users cannot have a rank higher than an admin rank
+        // Admins are ranked 1-3
+        const maxUserRank = 4;
+        if (!(user.rank === maxUserRank)) {
             rankUpBtn.addEventListener("click", () => {
                 // Update rank of user 1 rank above
                 for (let i = 1; i <= users.length; i++) {
@@ -302,21 +306,18 @@ class Admin extends User {
             });
         }
 
-        // 15 is the lowest rank a user can have
-        if (!(user.rank === 15)) {
-            rankDownBtn.addEventListener("click", () => {
-                // Update rank of user 1 rank below
-                for (let i = 1; i <= users.length; i++) {
-                    if (users[i].rank === user.rank + 1) {
-                        users[i].rank--; // increase rank of user above (lower rank is better)
-                        break;
-                    }
+        rankDownBtn.addEventListener("click", () => {
+            // Update rank of user 1 rank below
+            for (let i = 1; i <= users.length; i++) {
+                if (users[i].rank === user.rank + 1) {
+                    users[i].rank--; // increase rank of user above (lower rank is better)
+                    break;
                 }
+            }
 
-                user.rank++; //  decrease rank of user (higher rank is worse)
-                this.login(users); // login again to regenerate cards
-            });
-        }
+            user.rank++; //  decrease rank of user (higher rank is worse)
+            this.login(users); // login again to regenerate cards
+        });
     }
 }
 
@@ -400,7 +401,7 @@ function run() {
         if (reggie.test(usernameInput.value)) {
             let userExists = false;
             for (let i = 0; i < users.length; i++) {
-                if (users[i].username === usernameInput.value) {
+                if (users[i].username === usernameInput.value && (!users[i].deleted)) {
                     userExists = true;
                     users[i].login(users);
                     document.querySelector("#mainHeader").textContent = 'Dashboard of SSBM Characters';
