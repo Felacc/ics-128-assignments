@@ -229,8 +229,6 @@ class Admin extends User {
         super(firstName, lastName, email, username, isAdmin, profileImg);
     }
 
-
-
     // shows all users
     login(users) {
         super.removeCards();
@@ -290,6 +288,7 @@ class Admin extends User {
 
         // Users cannot have a rank higher than an admin rank
         // Admins are ranked 1-3
+        // So for highest rank user: disable rank up button
         const maxUserRank = 4;
         if (!(user.rank === maxUserRank)) {
             rankUpBtn.addEventListener("click", () => {
@@ -306,18 +305,22 @@ class Admin extends User {
             });
         }
 
-        rankDownBtn.addEventListener("click", () => {
-            // Update rank of user 1 rank below
-            for (let i = 1; i <= users.length; i++) {
-                if (users[i].rank === user.rank + 1) {
-                    users[i].rank--; // increase rank of user above (lower rank is better)
-                    break;
+        // For lowest rank user (represented by users.length): disable rank down button
+        if (!(user.rank === users.length)) {
+            rankDownBtn.addEventListener("click", () => {
+                // Update rank of user 1 rank below
+                for (let i = 1; i <= users.length; i++) {
+                    if (users[i].rank === user.rank + 1) {
+                        users[i].rank--; // increase rank of user above (lower rank is better)
+                        user.rank++; //  decrease rank of user (higher rank is worse)
+                        break;
+                    }
                 }
-            }
-
-            user.rank++; //  decrease rank of user (higher rank is worse)
-            this.login(users); // login again to regenerate cards
-        });
+    
+                this.login(users); // login again to regenerate cards
+            });
+        }
+        
     }
 }
 
@@ -371,7 +374,6 @@ mario.bestMoves = ["It's fuckin", "Mario", "Brother..."];
 // Array of Users
 let users = [fox, marth, jigglypuff, falco, sheik, captainFalcon, peach, iceClimbers, pikachu, yoshi, samus, luigi, doctorMario, ganondorf, mario];
 
-
 function run() {
     // Show modal on page load
     document.addEventListener("DOMContentLoaded", () => {
@@ -421,6 +423,5 @@ function run() {
 run();
 
 // Potential additions:
-// Add fix for when login modal is clicked out of
 // Choose a character screen (like with icons)? - this would be cool (think menu)
-// Add the ability to set ranks???? - each rank would become an object property and there would have to be a checksum to ensure that the rank is not taken, and not greater than the max # of users
+// Add the ability to set ranks???? - each rank would become an object property and there would have to be a checksum to ensure that the rank is not taken, and not greater than the # of users... for now I'll leave the buttons
