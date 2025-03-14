@@ -161,7 +161,7 @@ class User {
                             <span id="bestMoves">${this.bestMoves}</span>
                         </p>
                         <div id="btnContainer" class="container-fluid d-flex justify-content-between p-0"> 
-                            <div id="rankBtns" class="container p-0"> 
+                            <div id="rankBtns${this.username}" class="container p-0"> 
                                 <button id="rankUpBtn${this.username}" class="btn btn-dark"><i class="bi bi-chevron-up fs-5"></i></button>
                                 <button id="rankDownBtn${this.username}" class="btn btn-dark"><i class="bi bi-chevron-down fs-5"></i></button>
                             </div>
@@ -197,7 +197,8 @@ class User {
     }
 
     removeRanksBtns(user) {
-        const rankUpBtn = document.querySelector;
+        const rankBtnsContainer = document.querySelector("#rankBtns" + user.username);
+        rankBtnsContainer.style.display = "none";
     }
 
     // Shows only themselves and admins for since basic user role
@@ -209,6 +210,8 @@ class User {
                 this.colorCharacterCard(cardDiv);
                 row.appendChild(cardDiv);
                 this.removeDeleteBtn(user);
+                this.removeRanksBtns(user);
+
             }
         });
     }
@@ -219,9 +222,12 @@ class Admin extends User {
         super(firstName, lastName, email, username, isAdmin, profileImg);
     }
 
+
+
     // shows all users
     login(users) {
         super.removeCards();
+        users.sort((a, b) => a.rank - b.rank);
         users.forEach(user => {
             if (!(user.deleted)) {
                 const cardDiv = user.generateCharacterCard();
@@ -233,8 +239,13 @@ class Admin extends User {
                 // add delete button
                 if (!(user.isAdmin)) {
                     this.addDeleteBtn(user, users);
+                    this.addRankBtns(user, users);
+
+
                 } else {
                     super.removeDeleteBtn(user);
+                    super.removeRanksBtns(user);
+
                 }
             }
         });
@@ -260,8 +271,44 @@ class Admin extends User {
         });
     }
 
-    addRankUpBtn(user, users) {
+    addRankBtns(user, users) {
+        const rankBtnsContainer = document.querySelector("#rankBtns" + user.username);
+        rankBtnsContainer.style.display = "block";
 
+        const rankUpBtn = document.querySelector("#rankUpBtn" + user.username);
+        const rankDownBtn = document.querySelector("#rankDownBtn" + user.username);
+
+        // 4 is the highest rank a normal user can have (admin user ranks cant be changed)
+        if (!(user.rank === 4)) {
+            rankUpBtn.addEventListener("click", () => {
+                // Update rank of user 1 rank above
+                for (let i = 1; i <= users.length; i++) {
+                    if (users[i].rank === user.rank - 1) {
+                        users[i].rank++; // decrease rank of user above (higher rank is worse)
+                        break;
+                    }
+                }
+
+                user.rank--; //  increase rank of user (lower rank is better)
+                this.login(users); // login again to regenerate cards
+            });
+        }
+
+        // 15 is the lowest rank a user can have
+        if (!(user.rank === 15)) {
+            rankDownBtn.addEventListener("click", () => {
+                // Update rank of user 1 rank below
+                for (let i = 1; i <= users.length; i++) {
+                    if (users[i].rank === user.rank + 1) {
+                        users[i].rank--; // increase rank of user above (lower rank is better)
+                        break;
+                    }
+                }
+
+                user.rank++; //  decrease rank of user (higher rank is worse)
+                this.login(users); // login again to regenerate cards
+            });
+        }
     }
 }
 
@@ -339,8 +386,8 @@ function run() {
     loginBtn.addEventListener("click", () => {
         // verify user input w/ regex
         const reggie = /^[0-9a-zA-Z]+$/;
-        
-        if (reggie.test(usernameInput.value))  {
+
+        if (reggie.test(usernameInput.value)) {
             let userExists = false;
             for (let i = 0; i < users.length; i++) {
                 if (users[i].username === usernameInput.value) {
@@ -356,9 +403,6 @@ function run() {
         } else {
             document.querySelector("div#errorMessage").textContent = "Please use only alphanumeric characters";
         }
-
-    
-        
     });
 }
 
