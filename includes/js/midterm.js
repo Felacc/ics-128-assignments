@@ -375,6 +375,8 @@ function run() {
     // Show modal on page load
     document.addEventListener("DOMContentLoaded", () => {
         loginModal.show();
+        // Change text of main header in case they click out of modal:
+        document.querySelector("#mainHeader").textContent = "Choose a Character :)";
         // Fixes issues where pressing enter causes form submission
         // makes it so login button is pressed instead
         usernameInput.addEventListener("keypress", (event) => {
@@ -401,6 +403,7 @@ function run() {
                 if (users[i].username === usernameInput.value) {
                     userExists = true;
                     users[i].login(users);
+                    document.querySelector("#mainHeader").textContent = 'Dashboard of SSBM Characters';
                     break;
                 }
             }
