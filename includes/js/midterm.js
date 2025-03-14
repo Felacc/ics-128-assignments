@@ -14,6 +14,8 @@ INSTRUCTIONS:
 
     Admin Users: - cards for all users
                  - are able to delete cards for each user that isn't an admin (user ranks automatically adjust)
+                 - are able to adjust the ranks of regular users by pressing rank up and down buttons (the chevrons)
+                    * doesn't allow you to set rank higher than an admin and doesn't allow rank lower than 15
 
 
 3. You can login to another user by pressing the Choose a Character button on the navbar
@@ -25,15 +27,21 @@ Doing this project I feel that I learned how to better use ES6 and incorporate m
 I'm pretty happy with how this project came along because I think I did a better job with using scope and keeping all my logic within my classes,
 than I have previously.
 
-One struggle I think I have and have created for myself is complexity. My program does some things weirdly. 
+One struggle I think I have (created for myself) is complexity. My program does some things weirdly. 
 For example how I initialize the ranks is kinda silly. Using a global counter variable (called currentRank) that increments everytime a user object is created.
-This causes the restriction that users must be initialized in order of rank. It also added some difficulty when implementing my delete user functionality.
-Another issue it caused is that it stopped me from adding the feature of being able to adjust the rank of users with up and down arrows on each card,
-because the way I set up the ranks and generate the cards is just a bit weird.
+This made it so I had to sort the users array by rank every time I generated the cards because of a change in ranks or a deleted user. 
 
-There are definitely more features I wish I added, but I need to take a pause on this project for now and work on other things.
+Another weird thing that happens because of this is that my admin users MUST be instantiated before all other users. Because otherwise their ranks will not be 1-3,
+and they will be treated as regular user in some cases. The point is, the order that user objects are instantiated matters and that's weird (and also absolutely a
+result of my bad design choices).
+
+There are definitely more features I wish I added and code that I wish I cleaned up, but I need to take a pause on this project for now and work on other things.
 
 I still have a lot to learn in JS. Especially regarding making better design choices along the way, this would make adding more features less taxing.
+
+P.S. 
+I didn't really use any async functions or do any destructuring because I couldn't really think of a time to use either along the way.
+And I'm just hoping that wasn't a requirement, because I can't really tell from the rubric.
 
 */
 
