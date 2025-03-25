@@ -3,9 +3,26 @@ function loadWelcome() {
 }
 
 function loadQuiz(name) {
+    let finished = false;
+
+    let timeElapsed = 0;
+    let stopwatch = setInterval( () => {
+        timeElapsed++;
+        $("#stopwatch").text(timeElapsed);
+    }, 1000);
+
     $("#welcomeDiv").hide();
     $("#testerName").text(name);
     $("#quizContent").removeClass("d-none").hide().fadeIn(500);
+
+    
+    $("#submit").click(() => {
+        if (finished) {
+            clearInterval(stopwatch); // stops timer
+        }
+
+    });
+
 }
 
 $(document).ready(function () {
