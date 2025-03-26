@@ -1,17 +1,82 @@
 class QuizQuestion {
     static questionCounter = 0;
-    constructor(question, answerA, answerB, answerC, answerD) {
+    constructor(question, hint, answerA, answerB, answerC, answerD) {
         this._question = question;
+        this._hint = hint;
         this._answerA = answerA;
         this._answerB = answerB;
-        this._answerC = answerC;
-        this._answerD = answerD;
+        this._answerC = answerC || null; // using default parameters to mimic constructor overloading
+        this._answerD = answerD || null; // this way I can leave answerC and answerD as optional
 
         this._questionNumber = ++QuizQuestion.questionCounter;
     }
 
-    html() {
-        return `<div class="row mb-3">
+    get questionNumber() {
+        return this._questionNumber;
+    }
+
+    get hint() {
+        return this._hint;
+    }
+
+    getHTML() {
+        let numberOfAnswers = 2; // minimum 2 answers
+        // if there are three answers
+        if (!(this._answerC === null)) {
+            numberOfAnswers++;
+            // if there are four answers
+            if (!(this._answerD === null)) {
+                numberOfAnswers++;
+            }
+        }
+
+        switch (numberOfAnswers) {
+            case 2:
+                return `<div class="row mb-3">
+                    <h3 class="text-warning">${this._questionNumber}. ${this._question}</h3>
+                    <fieldset>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="${this._questionNumber}" id="${this._questionNumber}A">
+                            <label class="form-check-label" for="${this._questionNumber}A">
+                                A. ${this._answerA}
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="${this._questionNumber}" id="${this._questionNumber}B">
+                            <label class="form-check-label" for="${this._questionNumber}B">
+                                B. ${this._answerB}
+                            </label>
+                        </div>
+                    </fieldset>
+                    <div class="mt-3"><span id="hintHover${this._questionNumber}">[HINT]</span><span id="hint${this._questionNumber}"></span></div>
+                </div>`
+            case 3:
+                return `<div class="row mb-3">
+                    <h3 class="text-warning">${this._questionNumber}. ${this._question}</h3>
+                    <fieldset>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="${this._questionNumber}" id="${this._questionNumber}A">
+                            <label class="form-check-label" for="${this._questionNumber}A">
+                                A. ${this._answerA}
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="${this._questionNumber}" id="${this._questionNumber}B">
+                            <label class="form-check-label" for="${this._questionNumber}B">
+                                B. ${this._answerB}
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="${this._questionNumber}" id="${this._questionNumber}C">
+                            <label class="form-check-label" for="${this._questionNumber}C">
+                                C. ${this._answerC}
+                            </label>
+                        </div>
+                    </fieldset>
+                    <div class="mt-3"><span id="hintHover${this._questionNumber}">[HINT]</span><span id="hint${this._questionNumber}"></span></div>
+                </div>`
+            case 4:
+                return `<div class="row mb-3">
                     <h3 class="text-warning">${this._questionNumber}. ${this._question}</h3>
                     <fieldset>
                         <div class="form-check">
@@ -39,10 +104,112 @@ class QuizQuestion {
                             </label>
                         </div>
                     </fieldset>
+                    <div class="mt-3"><span id="hintHover${this._questionNumber}">[HINT]</span><span id="hint${this._questionNumber}"></span></div>
                 </div>`
+            default:
+                break;
+        }
+    }
+}
+
+class QuizQuestionCheckboxes extends QuizQuestion {
+    constructor(question, hint, answerA, answerB, answerC, answerD) {
+        super(question, hint, answerA, answerB, answerC, answerD);
     }
 
+    getHTML() {
+        let numberOfAnswers = 2; // minimum 2 answers
+        // if there are three answers
+        if (!(this._answerC === null)) {
+            numberOfAnswers++;
+            // if there are four answers
+            if (!(this._answerD === null)) {
+                numberOfAnswers++;
+            }
+        }
+
+        switch (numberOfAnswers) {
+            case 2:
+                return `<div class="row mb-3">
+                    <h3 class="text-warning">${this._questionNumber}. ${this._question}</h3>
+                    <fieldset>
+                        <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="${this._questionNumber}" id="${this._questionNumber}A">
+                            <label class="form-check-label" for="${this._questionNumber}A">
+                                A. ${this._answerA}
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="${this._questionNumber}" id="${this._questionNumber}B">
+                            <label class="form-check-label" for="${this._questionNumber}B">
+                                B. ${this._answerB}
+                            </label>
+                        </div>
+                    </fieldset>
+                    <div class="mt-3"><span id="hintHover${this._questionNumber}">[HINT]</span><span id="hint${this._questionNumber}"></span></div>
+                </div>`
+            case 3:
+                return `<div class="row mb-3">
+                    <h3 class="text-warning">${this._questionNumber}. ${this._question}</h3>
+                    <fieldset>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="${this._questionNumber}" id="${this._questionNumber}A">
+                            <label class="form-check-label" for="${this._questionNumber}A">
+                                A. ${this._answerA}
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="${this._questionNumber}" id="${this._questionNumber}B">
+                            <label class="form-check-label" for="${this._questionNumber}B">
+                                B. ${this._answerB}
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="${this._questionNumber}" id="${this._questionNumber}C">
+                            <label class="form-check-label" for="${this._questionNumber}C">
+                                C. ${this._answerC}
+                            </label>
+                        </div>
+                    </fieldset>
+                    <div class="mt-3"><span id="hintHover${this._questionNumber}">[HINT]</span><span id="hint${this._questionNumber}"></span></div>
+                </div>`
+            case 4:
+                return `<div class="row mb-3">
+                    <h3 class="text-warning">${this._questionNumber}. ${this._question}</h3>
+                    <fieldset>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="${this._questionNumber}" id="${this._questionNumber}A">
+                            <label class="form-check-label" for="${this._questionNumber}A">
+                                A. ${this._answerA}
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="${this._questionNumber}" id="${this._questionNumber}B">
+                            <label class="form-check-label" for="${this._questionNumber}B">
+                                B. ${this._answerB}
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="${this._questionNumber}" id="${this._questionNumber}C">
+                            <label class="form-check-label" for="${this._questionNumber}C">
+                                C. ${this._answerC}
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="${this._questionNumber}" id="${this._questionNumber}D">
+                            <label class="form-check-label" for="${this._questionNumber}D">
+                                D. ${this._answerD}
+                            </label>
+                        </div>
+                    </fieldset>
+                    <div class="mt-3"><span id="hintHover${this._questionNumber}">[HINT]</span><span id="hint${this._questionNumber}"></span></div>
+                </div>`
+            default:
+                break;
+        }
+    }
 }
+
 
 class Timer {
     constructor() {
@@ -70,15 +237,21 @@ const loadWelcome = () => {
 const loadQuiz = (name) => {
     // Create list of quiz questions
     const quizList = [
-        new QuizQuestion("How many?", 1, 2, 3, 4),
-        new QuizQuestion("If so?", "True", "False", "Maybe", "All of the above"),
-        new QuizQuestion("What is 9+10?", 19, 91, 21, 910),
-        new QuizQuestion("Is Dr. Mario a real doctor?", "Yes", "No", "Yes, he has a stethoscope", "Answer number 4"),
-        new QuizQuestion("I wrote this quiz using Vim because my up arrow key is broken", "Yes", "No", "Using Vim is cool", "Actually I'm just using Vim motions in VSCode, and it is hard")
+        new QuizQuestion("How many?", "It's 3 :D", 1, 2, 3, 4),
+        new QuizQuestionCheckboxes("If so?", "Think outside the box []", "True", "False", "Maybe", "All of the above"),
+        new QuizQuestion("What is 9+10?", "Famous answer to a famous question.", 19, 91, 21, 910),
+        new QuizQuestion("Dr. Mario is a real doctor.", "He has a stethoscope", "True", "False"),
+        new QuizQuestion("I like using Vim.", "I have some keyboard troubles...", "True", "False", "Actually I'm just using Vim motions in VSCode, because my up-arrow key is broken")
     ];
     // Loop through list and generate quiz questions
     for (let i = 0; i < quizList.length; i++) {
-        $("#quizContent form").append(quizList[i].html());
+        $("#quizContent form").append(quizList[i].getHTML());
+        // Hints on hover
+        $("#hintHover" + quizList[i].questionNumber).on("mouseenter", () => {
+            $("#hint" + quizList[i].questionNumber).hide().text(" = " + quizList[i].hint).fadeIn(1000);
+        }).on("mouseleave", () => {
+            $("#hint" + quizList[i].questionNumber).fadeOut(500);
+        });
     }
 
     // Start timer
