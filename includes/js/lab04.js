@@ -13,7 +13,7 @@ rooms.push({
 rooms.push({
     type: "Penthouse",
     description: "King size bed<br>" + "Bar<br>" + "Jacuzzi",
-    price: 229
+    price: 359
 });
 // Array with reference to corresponding DOM elements in which room properties will be displayed
 // Each domElements object must have the same index as the corresponding rooms object
