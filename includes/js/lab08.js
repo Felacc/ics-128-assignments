@@ -16,9 +16,12 @@ $("#bookRoomBtn").on("click", function () {
     const departureDate = Date.parse($("#departureInput").val());
     const nights = getNumberOfNights(arrivalDate, departureDate);
 
-    if (nights < 1) {
+    if (isNaN(nights)) {
         $("#results").fadeOut(250);
-        $("#resultsError").hide().fadeIn(250).text("Must book at least 1 night");
+        $("#resultsError").hide().fadeIn(250).text("Must fill out both date fields.");
+    } else if (nights < 1) {
+        $("#results").fadeOut(250);
+        $("#resultsError").hide().fadeIn(250).text("Must book at least 1 night.");
     } else {
         $("#resultsError").fadeOut(250);
         const pricePerNight = $("input[name='rooms']:checked").val(); // value attribute in HTML is set to the rooms price per night
