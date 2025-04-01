@@ -65,7 +65,54 @@
 
     <!--Main Content-->
     <main>
+        <h1 class="text-center text-white m-4">Lab 8 - Booking Widget</h1>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-6">
+                    <div id="description" class="text-white">
+                        <h3>Build a Booking Widget</h3>
+                        <p>
+                            The following widget will be used in a further lab. Use JQuery UI to help you with calendars. You will need to use date functions
+                            as well as other match to complete this lab.
+                        </p>
+                    </div>
+                    <div id="results" class="text-white">
+                        <h2>Results:</h2>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="card">
+                        <div class="card-header border-secondary">
+                            Book Your Room
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Booking Widget</h5>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="basic-addon1">Arrival & Departure</span>
+                                <input id="arrivalInput" type="date" class="form-control" aria-label="Arrival"
+                                    aria-describedby="basic-addon1">
+                                <input id="departureInput" type="date" class="form-control" aria-label="Departure"
+                                    aria-describedby="basic-addon1">
+                            </div>
+                            <p class="card-text mb-1">Select Room Type</p>
+                            <div class="input-group mb-3">
+                                <input type="radio" class="btn-check" name="rooms" id="standardRoom" autocomplete="off"
+                                    checked>
+                                <label class="btn btn-dark border-secondary" for="standardRoom"
+                                    style="border-top-left-radius: 0.375rem; border-bottom-left-radius: 0.375rem;">Standard</label>
 
+                                <input type="radio" class="btn-check" name="rooms" id="doubleRoom" autocomplete="off">
+                                <label class="btn btn-dark border-secondary" for="doubleRoom">Double</label>
+
+                                <input type="radio" class="btn-check" name="rooms" id="penthouseRoom" autocomplete="off">
+                                <label class="btn btn-dark border-secondary" for="penthouseRoom">Penthouse</label>
+                            </div>
+                            <a href="#" class="btn btn-success">Book Room</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </main>
 
 
