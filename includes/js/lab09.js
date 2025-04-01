@@ -106,7 +106,7 @@ submitBtn.addEventListener("click", () => {
             if (checkForNotAZEmailEdition.test(email)) {
                 errorMessage += "and the domains must be alphabetical\n"
             }
-            
+
             error = true;
 
             document.querySelector("#email").value = "";
@@ -138,11 +138,11 @@ submitBtn.addEventListener("click", () => {
         if (!(phoneReggie.test(phoneNumber))) {
             errorMessage = "Phone number format whack\n";
             error = true;
-    
+
             document.querySelector("#phoneNumber").value = "";
         }
     }
-    
+
 
 
     errorDiv.innerText = errorMessage;
@@ -159,7 +159,7 @@ function logout() {
     logoutBtn.style.display = "none";
     loginBtn.style.display = "block";
     document.querySelector(".offcanvas .card").style.display = "none";
-    document.querySelector("#hello").style.display ="none";
+    document.querySelector("#hello").style.display = "none";
 }
 
 function createUser() {
@@ -174,11 +174,59 @@ function createUser() {
 }
 
 function displayUserMessage() {
-    document.querySelector("#hello").style.display ="block";
-    document.querySelector("#helloFirstName").textContent = "Hello, " +  document.querySelector("#firstName").value;
+    document.querySelector("#hello").style.display = "block";
+    document.querySelector("#helloFirstName").textContent = "Hello, " + document.querySelector("#firstName").value;
     document.querySelector("#helloLastName").textContent = " " + document.querySelector("#lastName").value + "!";
 }
 
 logout();
 
-// end of lab 5 js
+// End of Lab 5 JS
+
+// Weather widget
+
+// Fetch weather data from OpenWeatherMap API
+async function getWeatherData() {
+    // not my api key, so feel free to take it lol
+    // note to self: if you do start using your own key, please don't put it here :)
+    const apiKey = "408910547897fd9d7029410128827a6d";
+    const lat = 48.4329; // victoria, bc latitude
+    const lon = -123.3693; // victoria bc longitude
+    const units = "metric";
+
+    const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=${units}&appid=${apiKey}`;
+
+    try {
+        const response = await fetch(url);
+
+        if (!response.ok) {
+            throw new Error(`Error: ${response.statusText}`);
+        }
+
+        const data = await response.json();
+
+        return data;
+    } catch (error) {
+        console.error("An error occurred while fetching weather data: ", error);
+    }
+    
+}
+
+
+function displayWeatherData(data) {
+    const temp = data.main.temp;
+    const main = data.weather[0].main;
+    const iconID = data.weather[0].icon;
+
+
+    $("#weatherTemp").html(temp + "&deg;C");
+    $("#weatherDescription").text(main);
+    $("#weatherIcon").attr("src", `https://openweathermap.org/img/wn/${iconID}.png`);
+}
+
+async function loadWeatherData() {
+    const data = await getWeatherData();
+    displayWeatherData(data);
+}
+
+loadWeatherData();

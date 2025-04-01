@@ -124,7 +124,7 @@
     </header>
 
     <!--Main Content-->
-    <main style="height: 100vh;">
+    <main class="position-relative" style="height: 100vh;">
         <!-- Modal -->
         <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -197,10 +197,16 @@
                         <img src="images/hotelLobby2.jpg" alt="Hotel lobby" class="h-100 rounded-start-pill">
                     </div>
                     <h1
-                        class="position-absolute top-50 start-50 translate-middle text-center text-white border border-5 border-dark">
+                        class="position-absolute top-50 start-50 translate-middle text-center text-white border border-5 border-secondary rounded">
                         Welcome to the Felix Hotel</h1>
                 </div>
             </div>
+        </div>
+
+        <div id="weatherContainer" class="border p-2 text-white position-absolute" style="top: 85%; left: 2%;">
+            <p class="m-0">Current Weather</p>
+            <span><img id="weatherIcon" class="d-inline"><p id="weatherTemp" class="d-inline"></p></span>
+            <p id="weatherDescription" class="m-0 text-center"></p>
         </div>
     </main>
 
