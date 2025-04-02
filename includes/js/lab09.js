@@ -183,7 +183,7 @@ logout();
 
 // End of Lab 5 JS
 
-// Start of Lab 6 JS
+// Start of Lab 6 JS (about section)
 class Hotel {
     constructor(name, city, rooms, booked, gym, roomTypes, swimmingPool, airportShuttle, restaurants) {
         this._name = name;
@@ -259,7 +259,7 @@ $("#hotelAmenities").html(solonaHotel.getHotelAmenitiesHTML());
 
 // End of Lab 6 JS
 
-// Start of Lab 8 JS
+// Start of Lab 8 JS (booking widget)
 $(function () {
     $(".datepicker").datepicker();
 
@@ -323,7 +323,7 @@ $("#cancelRoomBtn").on("click", function () {
 // End of Lab 8 JS
 
 
-// Start of Lab 4 JS
+// Start of Lab 4 JS (gallery section)
 
 // Array with properties of each room
 let rooms = [];
@@ -368,10 +368,6 @@ addEventListener("load", () => {
         domElements[i].text.innerHTML += rooms[i].description;
         domElements[i].price.innerHTML += rooms[i].price;
     }
-});
-
-$("#singleCard").on("mouseenter", function () {
-    $("#galleryLeft").append(`<img src="images/single.jpg>`);
 });
 
 // End of Lab 4 JS

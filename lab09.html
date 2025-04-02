@@ -39,7 +39,8 @@
         }
 
         #galleryRight img {
-            width: 24rem;
+            width: 60%;
+            object-fit: contain;
         }
 
         #galleryRight .card {
@@ -176,7 +177,7 @@
                             </div>
                             <!--Age-->
                             <div class="input-group mb-3">
-                                <span class="input-group-text" id="basic-addon1">🗓</span>
+                                <span class="input-group-text" id="basic-addon1">👴</span>
                                 <input id="age" type="number" class="form-control" placeholder="100" aria-label="Age"
                                     aria-describedby="basic-addon1">
                             </div>
@@ -311,15 +312,15 @@
             </div>
         </section>
 
-        <section id="roomsGallery" class="container-fluid mb-5">
+        <section id="roomsGallery" class="container-fluid mb-5" style="height: auto">
             <div class="row h-100">
-                <h2 class="col-12 d-flex justify-content-start align-items-end text-white fs-1 ms-3">Amenities
+                <h2 class="col-12 d-flex justify-content-start align-items-end text-white fs-1 ps-3 pe-0">Amenities
                 </h2>
-                <div id="galleryLeft" class="col-6 h-100 d-flex justify-content-center align-items-center">
-                    <img src="images/pool2.jpg" alt="" class="w-100 rounded-pill" style="object-fit: contain;">
+                <div id="galleryLeft" class="col-12 col-xl-6 d-flex justify-content-center align-items-center mb-5">
+                    <img src="images/pool2.jpg" alt="" class="w-100 rounded-pill">
                 </div>
-                <div id="galleryRight" class="col-6 h-100">
-                    <div id="singleCard" class="card mb-3">
+                <div id="galleryRight" class="col-12 col-xl-6 d-flex flex-column gap-3">
+                    <div id="singleCard" class="card">
                         <img src="images/single.jpg">
                         <div class="card-body">
                             <h5 class="card-title"><span id="standardTitle"></span></h5>
@@ -330,7 +331,7 @@
                     </div>
 
 
-                    <div id="doubleCard" class="card mb-3">
+                    <div id="doubleCard" class="card">
                         <img src="images/double.jpg">
                         <div class="card-body">
                             <h5 class="card-title"><span id="doubleTitle"></span></h5>
@@ -340,7 +341,7 @@
                         </div>
                     </div>
 
-                    <div id="penthouseCard" class="card mb-3">
+                    <div id="penthouseCard" class="card">
                         <img src="images/penthouse.jpg">
                         <div class="card-body">
                             <h5 class="card-title"><span id="penthouseTitle"></span></h5>
@@ -353,7 +354,7 @@
             </div>
         </section>
 
-        <div id="weatherContainer" class="border p-2 text-white position-fixed" style="top: 83%; left: 2%;">
+        <div id="weatherContainer" class="border border-warning p-2 text-warning position-fixed" style="top: 83%; left: 2%;">
             <p class="m-0 text-center">Current Weather</p>
             <span id="weatherTemp"></span>
             <img id="weatherIcon" class="d-inline">
