@@ -183,6 +183,145 @@ logout();
 
 // End of Lab 5 JS
 
+// Start of Lab 6 JS
+class Hotel {
+    constructor(name, city, rooms, booked, gym, roomTypes, swimmingPool, airportShuttle, restaurants) {
+        this._name = name;
+        this._city = city;
+        this._rooms = rooms;
+        this._booked = booked;
+        this._gym = gym;
+        this._roomTypes = roomTypes;
+        this._swimmingPool = swimmingPool;
+        this._airportShuttle = airportShuttle;
+        this._restaurants = restaurants;
+    }
+
+    get rooms() {
+        return this._rooms;
+    }
+
+    get booked() {
+        return this._booked;
+    }
+
+    bookRoom() {
+        this._booked += 1;
+        const availRooms = this._rooms - this._booked;
+    }
+
+    cancelRoom() {
+        this._booked -= 1;
+        const availRooms = this._rooms - this._booked;
+    }
+
+    // might need this for left side:
+    // <p id="bookedRooms" class="card-text text-success">There are ${hotel.booked} / ${hotel.rooms} rooms booked.</p>
+    // <a href="#" id="book${hotel.ID}" class="btn btn-primary">Book Room</a>
+    // <a href="#" id="cancel${hotel.ID}" class="btn btn-danger">Cancel Room</a>
+    getHotelAmenitiesHTML() {
+        // create string literal with html p tags for displaying all the restaurants
+        let restaurantsInfo = ``;
+        let counter = 1;
+        for (let [key, value] of this._restaurants) {
+            restaurantsInfo += `<p><b>${counter}. ${key}</b> / Type / <b>${value}</b></p>`
+            counter++;
+        }
+
+        // create string containing html with all hotel info
+        const hotelInfo = `
+                <p><b>Hotel has a shuttle?</b> ${this._airportShuttle}</p>
+                <p><b>Hotel has a swimming pool?</b> ${this._swimmingPool}</p>
+                <b>Hotel has ${this._restaurants.size} restaurants each with a different theme:</b>
+                ${restaurantsInfo}
+`       ;
+        return hotelInfo;
+    }
+}
+
+
+const solonaHotel = new Hotel(
+    "Solona Hotel", // name
+    "Victoria", // city
+    155, // rooms
+    135, // booked rooms
+    true, // has gym?
+    ["Regular", "Double", "Penthouse"], // room types
+    true, // has swimming pool?
+    true, // has airport shuttle?
+    new Map([
+        ["Donde La Arepa", "Colombian"],
+        ["Casa Ramen", "Japenese"],
+        ["Pizza Hermosa", "Italian"]
+    ]) // list of restaurants and their associated type
+);
+$("#hotelAmenities").html(solonaHotel.getHotelAmenitiesHTML());
+
+// End of Lab 6 JS
+
+// Start of Lab 8 JS
+$(function () {
+    $(".datepicker").datepicker();
+
+});
+
+// Returns number of nights in the stay
+function getNumberOfNights(arrivalDate, departureDate) {
+    const oneDay = 1000 * 60 * 60 * 24; // 1000 milliseconds in a second, 60 seconds in a minute, 60 minutes in an hour, 24 hours in a day
+    const nights = Math.round((departureDate - arrivalDate) / oneDay); // idk why but I was getting rounding errors over like 5 days
+    return nights;
+}
+
+$("#bookRoomBtn").on("click", function () {
+    // Dates are represented as time in milliseconds that has elapsed since midnight January 1, 1970, UTC
+    const arrivalDate = Date.parse($("#arrivalInput").val());
+    const departureDate = Date.parse($("#departureInput").val());
+    const nights = getNumberOfNights(arrivalDate, departureDate);
+
+    if (isNaN(nights)) {
+        $("#resultsError").hide().fadeIn(250).text("Must fill out both date fields.");
+    } else if (nights < 1) {
+        $("#resultsError").hide().fadeIn(250).text("Must book at least 1 night.");
+    } else {
+        $("#resultsError").fadeOut(250);
+        solonaHotel.bookRoom();
+        const pricePerNight = $("#aboutRight input[name='rooms']:checked").val(); // value attribute in HTML is set to the rooms price per night
+        const totalPrice = nights * pricePerNight;
+        const resultsHTML = `
+            <p class="text-success fst-italic">There are ${solonaHotel.booked} / ${solonaHotel.rooms} rooms booked.</p> 
+            <p class="text-white">Your length of stay is: ${nights} nights</p>
+            <p class="text-white">$${pricePerNight}/night</p>
+            <p class="text-white">Total: $${totalPrice}.00</p>
+        `
+        $("#bookedModal #results").hide().fadeIn(250).html(resultsHTML);
+    }
+});
+
+$("#cancelRoomBtn").on("click", function () {
+    // Dates are represented as time in milliseconds that has elapsed since midnight January 1, 1970, UTC
+    const arrivalDate = Date.parse($("#arrivalInput").val());
+    const departureDate = Date.parse($("#departureInput").val());
+    const nights = getNumberOfNights(arrivalDate, departureDate);
+
+    if (isNaN(nights)) {
+        $("#resultsError").hide().fadeIn(250).text("Must fill out both date fields.");
+    } else if (nights < 1) {
+        $("#resultsError").hide().fadeIn(250).text("Must book at least 1 night.");
+    } else {
+        $("#resultsError").fadeOut(250);
+        solonaHotel.cancelRoom();
+        const pricePerNight = $("#aboutRight input[name='rooms']:checked").val(); // value attribute in HTML is set to the rooms price per night
+        const totalPrice = nights * pricePerNight;
+        const resultsHTML = `
+            <p class="text-success fst-italic">There are ${solonaHotel.booked} / ${solonaHotel.rooms} rooms booked.</p> 
+            <p class="text-white">$${pricePerNight}/night</p>
+            <p class="text-white">Total: $${totalPrice}.00</p>
+        `
+        $("#cancelledModal #results").hide().fadeIn(250).html(resultsHTML);
+    }
+});
+// End of Lab 8 JS
+
 // Weather widget
 
 // Fetch weather data from OpenWeatherMap API
@@ -209,7 +348,7 @@ async function getWeatherData() {
     } catch (error) {
         console.error("An error occurred while fetching weather data: ", error);
     }
-    
+
 }
 
 

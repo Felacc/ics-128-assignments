@@ -1,4 +1,10 @@
-html, body {
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+}
+
+section {
     height: 100vh;
 }
 
@@ -29,3 +35,8 @@ html, body {
     border: 2px solid #212529;
     color: white;
 }
+
+/* Fixes JQuery UI calendars being overlapped by other elements */
+.ui-datepicker {
+            z-index: 9999 !important;
+        }

@@ -41,7 +41,7 @@
         <!--Nav-->
         <nav class="navbar bg-dark sticky-top">
             <div class="container-fluid">
-                <a class="navbar-brand text-white" href="index.html"> ICS 128 | Assignments</a>
+                <a class="navbar-brand text-white" href="index.html"> The Solona Hotel</a>
                 <button class="navbar-toggler border-secondary" type="button" data-bs-toggle="offcanvas"
                     data-bs-target="#offcanvasNavbar" aria-controls="navbarNav" aria-expanded="false"
                     aria-label="Toggle navigation">
@@ -50,7 +50,7 @@
                 <div class="offcanvas offcanvas-end bg-warning" tabindex="-1" id="offcanvasNavbar"
                     aria-labelledby="offcanvasNavbarLabel">
                     <div class="offcanvas-header">
-                        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Felix Hotel</h5>
+                        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Solona Hotel</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                     </div>
                     <div class="offcanvas-body">
@@ -124,7 +124,7 @@
     </header>
 
     <!--Main Content-->
-    <main class="position-relative" style="height: 100vh;">
+    <main class="position-relative">
         <!-- Modal -->
         <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -183,13 +183,13 @@
             </div>
         </div>
 
-        <div id="hero" class="container-fluid h-100">
+        <section id="hero" class="container-fluid">
             <div class="row h-100">
                 <div id="heroLeft" class="col-6 d-flex flex-column justify-content-center align-items-center">
                     <div id="heroText" class="p-5">
                         <h3 class="fst-italic text-white text-center mb-5">The best hotel to ever do it (we have one of
                             those cool pancake machines)</h3>
-                        <button type="button" class="btn btn-warning ms-3">Book Room</button>
+                        <a href="#about" class="btn btn-warning ms-3">Book Room</a>
                     </div>
                 </div>
                 <div id="heroRight" class="col-6 p-0 h-100 position-relative">
@@ -198,15 +198,104 @@
                     </div>
                     <h1
                         class="position-absolute top-50 start-50 translate-middle text-center text-white border border-5 border-secondary rounded">
-                        Welcome to the Felix Hotel</h1>
+                        Welcome to the Solona Hotel</h1>
                 </div>
             </div>
-        </div>
+        </section>
 
-        <div id="weatherContainer" class="border p-2 text-white position-absolute" style="top: 85%; left: 2%;">
-            <p class="m-0">Current Weather</p>
-            <span><img id="weatherIcon" class="d-inline"><p id="weatherTemp" class="d-inline"></p></span>
-            <p id="weatherDescription" class="m-0 text-center"></p>
+        <section id="about" class="container-fluid d-flex">
+            <div class="row h-100">
+                <h2 class="col-12 d-flex justify-content-center align-items-end text-white fs-1 mb-5">About The Solona
+                    Hotel
+                </h2>
+                <div id="aboutLeft" class="col-6 d-flex flex-column justify-content-start align-items-start">
+                    <h3 class="text-warning fs-2 mb-3">The best place to stay in all of Canada</h3>
+                    <p class="text-white fs-4">The Solona Hotel is the most beautiful hotel that the world has ever
+                        seen.
+                        When you stay here, you leave a better man.</p>
+                    <p id="hotelAmenities" class="text-white fst-italic fs-5"></p>
+                </div>
+                <div id="aboutRight" class="col-6">
+                    <div class="card border border-white">
+                        <div class="card-header border-secondary">
+                            Book Your Room
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Booking Widget</h5>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="basic-addon1">Arrival & Departure</span>
+                                <input id="arrivalInput" type="text" class="datepicker" aria-label="Arrival"
+                                    aria-describedby="basic-addon1">
+                                <input id="departureInput" type="text" class="datepicker" aria-label="Departure"
+                                    aria-describedby="basic-addon1">
+                            </div>
+                            <p class="card-text mb-1">Select Room Type</p>
+                            <div class="input-group mb-3">
+                                <input type="radio" class="btn-check" name="rooms" value="159" id="standardRoom"
+                                    autocomplete="off" checked>
+                                <label class="btn btn-dark border-secondary" for="standardRoom"
+                                    style="border-top-left-radius: 0.375rem; border-bottom-left-radius: 0.375rem;">Standard</label>
+
+                                <input type="radio" class="btn-check" name="rooms" value="229" id="doubleRoom"
+                                    autocomplete="off">
+                                <label class="btn btn-dark border-secondary" for="doubleRoom">Double</label>
+
+                                <input type="radio" class="btn-check" name="rooms" value="359" id="penthouseRoom"
+                                    autocomplete="off">
+                                <label class="btn btn-dark border-secondary" for="penthouseRoom">Penthouse</label>
+                            </div>
+
+                            <div id="resultsError" class="text-danger"></div>
+                            <button id="bookRoomBtn" class="btn btn-success" data-bs-toggle="modal"
+                                data-bs-target="#bookedModal">Book Room</button>
+                            <button id="cancelRoomBtn" class="btn btn-danger" data-bs-toggle="modal"
+                                data-bs-target="#cancelledModal">Cancel Room</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div id="bookedModal" class="modal" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content bg-dark">
+                        <div class="modal-header">
+                            <h5 class="modal-title text-white">Booked!</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div id="available"></div>
+                            <div id="results"></div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="cancelledModal" class="modal" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content bg-dark">
+                        <div class="modal-header">
+                            <h5 class="modal-title text-white">Cancelled!</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div id="available"></div>
+                            <div id="results"></div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div id="weatherContainer" class="border p-2 text-white position-fixed" style="top: 83%; left: 2%;">
+            <p class="m-0 text-center">Current Weather</p>
+            <span id="weatherTemp"></span>
+            <img id="weatherIcon" class="d-inline">
+            <span id="weatherDescription"></span>
         </div>
     </main>
 
