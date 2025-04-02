@@ -322,6 +322,60 @@ $("#cancelRoomBtn").on("click", function () {
 });
 // End of Lab 8 JS
 
+
+// Start of Lab 4 JS
+
+// Array with properties of each room
+let rooms = [];
+rooms.push({
+    type: "Standard",
+    description: "Simple room with one bed",
+    price: 159
+});
+rooms.push({
+    type: "Double",
+    description: "Simple room with two beds",
+    price: 229
+});
+rooms.push({
+    type: "Penthouse",
+    description: "King size bed<br>" + "Bar<br>" + "Jacuzzi",
+    price: 359
+});
+// Array with reference to corresponding DOM elements in which room properties will be displayed
+// Each domElements object must have the same index as the corresponding rooms object
+let domElements = [];
+domElements.push({
+    title: document.querySelector("#standardTitle"),
+    text: document.querySelector("#standardDescription"),
+    price: document.querySelector("#standardPrice")
+});
+domElements.push({
+    title: document.querySelector("#doubleTitle"),
+    text: document.querySelector("#doubleDescription"),
+    price: document.querySelector("#doublePrice")
+});
+domElements.push({
+    title: document.querySelector("#penthouseTitle"),
+    text: document.querySelector("#penthouseDescription"),
+    price: document.querySelector("#penthousePrice")
+});
+
+
+addEventListener("load", () => {
+    for (let i = 0; i < rooms.length; i++) {
+        domElements[i].title.innerHTML += rooms[i].type;
+        domElements[i].text.innerHTML += rooms[i].description;
+        domElements[i].price.innerHTML += rooms[i].price;
+    }
+});
+
+$("#singleCard").on("mouseenter", function () {
+    $("#galleryLeft").append(`<img src="images/single.jpg>`);
+});
+
+// End of Lab 4 JS
+
 // Weather widget
 
 // Fetch weather data from OpenWeatherMap API
